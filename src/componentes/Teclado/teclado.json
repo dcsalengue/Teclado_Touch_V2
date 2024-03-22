@@ -1,0 +1,86 @@
+[	
+	{
+		"id":				0,
+		"alt":              "1"	,
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_1_INATIVO[267-74].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_1_PRESS[267-74].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_1_SOLTO[267-74].BMP"
+	},
+	{
+		"id":				1,
+		"alt":              "2"	,
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_2_INATIVO[314-74].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_2_PRESS[314-74].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_2_SOLTO[314-74].BMP"
+	},
+	{
+		"id":				2,
+		"alt":              "3"	,
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_3_INATIVO[360-74].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_3_PRESS[360-74].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_3_SOLTO[360-74].BMP"
+	},
+	{
+		"id":				3,
+		"alt":              ","	,
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_VIRGULA_INATIVO[407-74].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_VIRGULA_PRESS[407-74].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_VIRGULA_SOLTO[407-74].BMP"
+	},
+	{
+		"id":				4,
+		"alt":              "4"	,
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_4_INATIVO[267-117].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_4_PRESS[267-117].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_4_SOLTO[267-117].BMP"
+	},
+	{
+		"id":				5,
+		"alt":              "5"	,
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_5_INATIVO[314-117].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_5_PRESS[314-117].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_5_SOLTO[314-117].BMP"
+	},
+	{
+		"id":				6,
+		"alt":              "6",	
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_6_INATIVO[360-117].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_6_PRESS[360-117].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_6_SOLTO[360-117].BMP"
+	},
+	{
+		"id":				7,
+		"alt":              "BACK",	
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_BACKSPACE_INATIVO[407-117].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_BACKSPACE_PRESS[407-117].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_BACKSPACE_SOLTO[407-117].BMP"
+	},
+	
+	{
+		"id":				8,
+		"alt":              "7"	,
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_7_INATIVO[267-160].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_7_PRESS[267-160].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_7_SOLTO[267-160].BMP"
+	},
+	{
+		"id":				9,
+		"alt":              "8"	,
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_8_INATIVO[313-160].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_8_PRESS[313-160].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_8_SOLTO[313-160].BMP"
+	},
+	{
+		"id":				10,
+		"alt":              "9"	,
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_9_INATIVO[360-160].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_9_PRESS[360-160].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_9_SOLTO[360-160].BMP"
+	},{
+		"id":				11,
+		"alt":              "0",
+		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_0_INATIVO[407-160].BMP",
+		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_0_PRESS[407-160].BMP",
+		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_0_SOLTO[407-160].BMP"
+	}
+]
