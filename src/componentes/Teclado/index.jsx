@@ -1,7 +1,11 @@
 import styled from "styled-components"
 import teclas from "./teclado.json"
 import { useEffect, useState } from "react";
-
+const Container = styled.div`
+    position: fixed;
+    right: '2px';
+    top: '72px';
+`
 const TecladoContainer = styled.div`
     display: flex;
     background: "#E8E8E8";
@@ -35,7 +39,7 @@ const Tecla = ({ tecla, onClique, isHoveredExternally }) => {
     );
 };
 
-const Teclado = ( {onTeclaPressionada}) => {
+const Teclado = ({ style, onTeclaPressionada }) => {
     const [hoveredKeyId, setHoveredKeyId] = useState(null);
 
     const handleSimulatedHover = (id) => {
@@ -91,11 +95,13 @@ const Teclado = ( {onTeclaPressionada}) => {
                     break;
                 case '0':
                     id = 11;
-                    break; 
+                    break;
+                default:
+                    id = -1;
             }
             handleSimulatedHover(id);
             clique(id)
-            
+
         };
 
         window.addEventListener('keydown', handleKeyPress);
@@ -106,24 +112,24 @@ const Teclado = ( {onTeclaPressionada}) => {
     }, []);
 
     return (
-        <TecladoContainer>
-            {teclas.map(tecla => (
-                <Tecla
-                    key={tecla.id}
-                    tecla={tecla}
-                    onClique={() =>  clique(tecla.id)}
-                    isHoveredExternally={hoveredKeyId === tecla.id}
-                />
-            ))}
-        </TecladoContainer>
+        <Container style={style}>
+            <TecladoContainer>
+                {teclas.map(tecla => (
+                    <Tecla
+                        key={tecla.id}
+                        tecla={tecla}
+                        onClique={() => clique(tecla.id)}
+                        isHoveredExternally={hoveredKeyId === tecla.id}
+                    />
+                ))}
+            </TecladoContainer>
+        </Container>
     );
-    function clique(id){
-        const tecla = teclas.find(tecla => tecla.id === id);
-        onTeclaPressionada(tecla ? tecla.alt : null)
-        //console.log(tecla.alt)   
-      //  return tecla ? tecla.alt : null;
+    function clique(id) {
+        var tecla = teclas.find(tecla => tecla.id === id);
+        onTeclaPressionada(tecla && (id >= 0) ? tecla.alt : null)
     }
-    
+
 };
 
 

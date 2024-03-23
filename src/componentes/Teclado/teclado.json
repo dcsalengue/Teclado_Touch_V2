@@ -22,7 +22,7 @@
 	},
 	{
 		"id":				3,
-		"alt":              ","	,
+		"alt":              "."	,
 		"imagem_inativo":	"/imagens/teclado/TECLADO_NUMERICO_DIREITA_VIRGULA_INATIVO[407-74].BMP",
 		"imagem_press":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_VIRGULA_PRESS[407-74].BMP",
 		"imagem_solto":		"/imagens/teclado/TECLADO_NUMERICO_DIREITA_VIRGULA_SOLTO[407-74].BMP"
