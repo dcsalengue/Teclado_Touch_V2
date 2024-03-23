@@ -2,6 +2,7 @@
 import { styled } from "styled-components"
 import Teclado from "./componentes/Teclado"
 import { useState } from "react";
+import DisplayNumerico from "./componentes/EstilosGlobais/DisplayNumerico";
 
 const ContainerDisplay = styled.div`
   position: relative;
@@ -62,20 +63,35 @@ const Main = styled.main`
 `
 
 function App() {
-  const [teclaPressionada, setTeclaPressionada] = useState(null);
+  //const [teclaPressionada, setTeclaPressionada] = useState(null);
+  const [teclaPressionada, setTeclaPressionada] = useState({ digito: null, contador: 0 });
+
+  const [valorExibido, setValorExibido] = useState('');
+  const [digito, setDigito] = useState('');
+
+  const handleTeclaPressionada = (novoDigito) => {
+    setTeclaPressionada(prevState => ({
+      digito: novoDigito,
+      contador: prevState.contador + 1
+    }));
+  };
+
+
   return (
     <FundoGradiente>
       <ContainerDisplay>
         <BarraDeStatus />
-        <Main>{teclaPressionada}</Main> 
-        <Teclado style={tecladoStyle} onTeclaPressionada={setTeclaPressionada} />
+        <Main>
+          <DisplayNumerico valorExibido={valorExibido} setValorExibido={setValorExibido} digito={teclaPressionada.digito} teclaPressionada={teclaPressionada} />
+        </Main>
+        <Teclado style={tecladoStyle} onTeclaPressionada={handleTeclaPressionada} />
         <CaminhoDePao />
       </ContainerDisplay>
 
-      
+
     </FundoGradiente>
   )
 }
 
-export default App 
+export default App
 //<DivTeste> {teclaPressionada} </DivTeste>
