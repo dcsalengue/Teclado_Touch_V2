@@ -74,6 +74,7 @@ function App() {
   const [teclaPressionada, setTeclaPressionada] = useState({ digito: null, contador: 0 });
 
   const [valorExibido, setValorExibido] = useState('');
+  const [valorNumerico, setValorNumerico] = useState(0);
   const [digito, setDigito] = useState('');
 
   const handleTeclaPressionada = (novoDigito) => {
@@ -87,21 +88,29 @@ function App() {
   //   console.log("E aí, isso aqui roda sempre que o componente renderizar!");
   // });
 
-   useEffect(() => {
-     console.log("Sou executado apenas na montagem do componente! Tipo um componentDidMount.");
-   }, []);
+  useEffect(() => {
+    console.log("Sou executado apenas na montagem do componente! Tipo um componentDidMount.");
+  }, []);
 
   return (
     <FundoGradiente>
       <ContainerDisplay>
         <BarraDeStatus />
         <Main>
-          <DisplayNumerico valorExibido={valorExibido} setValorExibido={setValorExibido} digito={teclaPressionada.digito} teclaPressionada={teclaPressionada} />
+          <DisplayNumerico
+            valorNumerico={valorNumerico}
+            valorExibido={valorExibido}
+            setValorExibido={setValorExibido}
+            teclaPressionada={teclaPressionada}
+            maxDigitosInteiros={4} 
+            maxDigitosDecimais={1}
+          />
         </Main>
         <Teclado style={tecladoStyle} onTeclaPressionada={handleTeclaPressionada} />
         <CaminhoDePao />
       </ContainerDisplay>
-      <button onClick={() => { setValorExibido(getRandomIntInclusive(10000, 99999)) }}>Botão</button>
+      <button onClick={() => { setValorExibido(getRandomIntInclusive(10000, 99999)) }}>Valor Exibido</button>
+      <button onClick={() => { setValorNumerico(Math.random() * 25358) }}>Valor Númerico</button>
 
 
     </FundoGradiente>
