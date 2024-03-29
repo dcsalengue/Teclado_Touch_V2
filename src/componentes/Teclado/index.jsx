@@ -28,6 +28,7 @@ const Tecla = ({ tecla, onClique, isHoveredExternally }) => {
 
     const hoverState = isHovered || isHoveredExternally; // Combine hover interno e externo
 
+    
     return (
         <TeclaDiv
             onMouseEnter={() => setIsHovered(true)}

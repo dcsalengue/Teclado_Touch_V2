@@ -1,12 +1,13 @@
 
-import { styled } from "styled-components"
+import styled from "styled-components"
 import Teclado from "./componentes/Teclado"
-import { useState } from "react";
-import DisplayNumerico from "./componentes/EstilosGlobais/DisplayNumerico";
+import { useState, useEffect } from "react";
+import DisplayNumerico from "./componentes/DisplayNumerico";
 
 const ContainerDisplay = styled.div`
   position: relative;
-  width: 482px;
+  margin: 20px;
+  min-width: 482px;
   height: 274px;
   border: 2px solid blue;
   background-color:white;
@@ -20,6 +21,7 @@ const tecladoStyle = {
 const FundoGradiente = styled.div`
   display:flex;
   align-items: center;
+  flex-direction: column;
   justify-content:center;
   background: linear-gradient(174.61deg, #041833 4.16%, #04244F 48%, #154580 96.76%);
   width: 100%;
@@ -61,6 +63,11 @@ const Main = styled.main`
   color: white;
   font-size: 20px;
 `
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); //O máximo é inclusivo e o mínimo é inclusivo
+}
 
 function App() {
   //const [teclaPressionada, setTeclaPressionada] = useState(null);
@@ -76,6 +83,13 @@ function App() {
     }));
   };
 
+  // useEffect(() => {
+  //   console.log("E aí, isso aqui roda sempre que o componente renderizar!");
+  // });
+
+   useEffect(() => {
+     console.log("Sou executado apenas na montagem do componente! Tipo um componentDidMount.");
+   }, []);
 
   return (
     <FundoGradiente>
@@ -87,6 +101,7 @@ function App() {
         <Teclado style={tecladoStyle} onTeclaPressionada={handleTeclaPressionada} />
         <CaminhoDePao />
       </ContainerDisplay>
+      <button onClick={() => { setValorExibido(getRandomIntInclusive(10000, 99999)) }}>Botão</button>
 
 
     </FundoGradiente>
