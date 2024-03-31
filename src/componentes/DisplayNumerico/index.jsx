@@ -60,7 +60,7 @@ const DisplayNumerico = ({ style, valorExibido, setValorExibido, teclaPressionad
 
 
     return (
-        <div>
+        <div style={style}>
             {valorExibido}
         </div>
     )

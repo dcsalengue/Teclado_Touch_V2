@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "value": "manutencao",
+        "nome": "Manutenção"
+    },
+    {
+        "id": 2,
+        "value": "carregamento",
+        "nome": "Carregamento"
+    },
+    {
+        "id": 3,
+        "value": "bolus",
+        "nome": "Bolus"
+    }
+]

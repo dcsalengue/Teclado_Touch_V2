@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "value": "ng_kg_min",
+        "nome": "ng/Kg/min"
+    },
+    {
+        "id": 2,
+        "value": "ug_kg_min",
+        "nome": "ug/Kg/min"
+    },
+    {
+        "id": 3,
+        "value": "mg_kg_min",
+        "nome": "mg/Kg/min"
+    },
+    {
+        "id": 4,
+        "value": "g_kg_min",
+        "nome": "g/Kg/min"
+    },
+    {
+        "id": 5,
+        "value": "ng_kg_hora",
+        "nome": "ng/Kg/hora"
+    },
+    {
+        "id": 6,
+        "value": "ug_kg_hora",
+        "nome": "ug/Kg/hora"
+    },
+    {
+        "id": 7,
+        "value": "mg_kg_hora",
+        "nome": "mg/Kg/hora"
+    },
+    {
+        "id": 8,
+        "value": "g_kg_hora",
+        "nome": "g/Kg/hora"
+    },
+    {
+        "id": 9,
+        "value": "ng_min",
+        "nome": "ng/min"
+    },
+    {
+        "id": 10,
+        "value": "ug_min",
+        "nome": "ug/min"
+    },
+    {
+        "id": 11,
+        "value": "mg_min",
+        "nome": "mg/min"
+    },
+    {
+        "id": 12,
+        "value": "g_min",
+        "nome": "g/min"
+    },
+    {
+        "id": 13,
+        "value": "ng_hora",
+        "nome": "ng/hora"
+    },
+    {
+        "id": 14,
+        "value": "ug_hora",
+        "nome": "ug/hora"
+    },
+    {
+        "id": 15,
+        "value": "mg_hora",
+        "nome": "mg/hora"
+    },
+    {
+        "id": 16,
+        "value": "g_hora",
+        "nome": "g/hora"
+    }
+]

@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "value": "volumetrico",
+        "nome": "Volumétrico"
+    },
+    {
+        "id": 2,
+        "value": "dose",
+        "nome": "Dose"
+    },
+    {
+        "id": 3,
+        "value": "ders",
+        "nome": "DERS"
+    }
+]
