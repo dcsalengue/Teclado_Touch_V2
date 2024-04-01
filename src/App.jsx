@@ -58,6 +58,7 @@ const CaminhoDePao = styled.footer`
   background-color: #FF00FF;
 `
 const Main = styled.main`
+padding-left: 2px;
   display: flex;
   position: absolute;
   align-items: center;
@@ -65,14 +66,16 @@ const Main = styled.main`
   flex-direction: column ;
   top: 63px;
   left: 0px;
-  height: 197px;
+  height: 191px;
   width: 293px;
-  background-color: #00bbff;
-  font-size: 20px;
+  background-color: #2F7CC8;
+  font-size: 28px;
+  box-sizing: border-box;
 `
 
 const AbaProgramar = styled.div`
-  border: 2px solid black;
+display: flex;
+  border: 1px solid white;
   flex-grow: 1; /* Faz com que a AbaProgramar ocupe todo o espaço disponível */
   width: 100%; /* Ocupa todo o espaço disponível horizontalmente */
   height: 100%; /* Ocupa todo o espaço disponível verticalmente */
@@ -82,11 +85,6 @@ const AbaProgramar = styled.div`
   
   color: black;
   box-sizing: border-box;
-  /* & .div{
-    /* background-color: #81B0DE; */
-    /* color: white; */
-    /* position: absolute; */
-  /* } */
 `
 
 const EspacoEsquerda = styled.section`
@@ -116,34 +114,52 @@ const EspacoDireita = styled.section`
 const LabelParametroProgramacao = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1px;
+  padding: 3px 1px 1px 3px;
   align-items: left;
   justify-content: left;
-  width: 92px;
+  width: 72px;
   height: 100%;
-  border-right: 1px solid black;
-  font-size: 32px;
-
+  border-right: 1px solid white;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  box-sizing: border-box;
   /* Estilo para o span */
   & > span {
     margin-top: auto;
-    font-size: 16px;
-    color: #505050;
+    margin-bottom: 2px;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: normal;
+    font-size: 10px;
+    color: #dddddd;
   }
 `;
 
 
 const styleDisplayNumerico = {
-  color: "white",
-  backgroundColor: "black",
+  color: "black",
+  backgroundColor: "white",
+  marginLeft: "2px",
+  marginRight: "80px",
 
 }
 
-const divLabel = {
-  width: "92px",
-  height: "100%",
+const divUnidade = {
+  display: "flex",
+  position: "fixed",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "80px",
+  height: "25px",
+  margin_right:"0px",
+  right: "272px",
   backcground: "red",
+  backcgroundColor:"red",
   border: '1px solid black',
+  fontSize: "12px",
+  
+  fontFamily: "Ubunto, sans-serif"
 }
 
 function getRandomIntInclusive(min, max) {
@@ -191,45 +207,60 @@ function App() {
           <BarraDeStatus />
           <Main>
             <AbaProgramar>
-            <LabelParametroProgramacao>
-              Dose
-              <span>
-                Carregamento
-                </span>
-            </LabelParametroProgramacao>
-              {/* <div style={{
-                display: "flex",
-                flexDirection: "column",
-                padding:"1px",
-                alignItems: "left",
-                justifyContent: "left",
-                width: "92px",
-                height: "100%",
-                borderRight: '1px solid black',
-                fontSize:"32px",
-                
-              }}>
+              <LabelParametroProgramacao tipoInfusao={tipoInfusaoSelecionado} parametroProgramacao={"Dose"}>
                 Dose
-                <span style={{
-                  marginTop: "auto", 
-                  fontSize: "16px",
-                  color: "#505050",
-                }}>Carregamento</span>
-              </div> */}
+                <span>
+                  Carregamento
+                </span>
+              </LabelParametroProgramacao>
+              <div style={{display: "flex", flexDirection: "row", }}>
               <DisplayNumerico
                 style={styleDisplayNumerico}
                 valorNumerico={valorNumerico}
                 valorExibido={valorExibido}
                 setValorExibido={setValorExibido}
                 teclaPressionada={teclaPressionada}
-                maxDigitosInteiros={4}
-                maxDigitosDecimais={1}
+                maxDigitosInteiros={5}
+                maxDigitosDecimais={3}
               />
+              <div style={divUnidade}>
+                mmol/Kg/min
+              </div>
+              </div>
             </AbaProgramar>
-            <AbaProgramar>Teste</AbaProgramar>
-            <AbaProgramar>Teste</AbaProgramar>
-            <AbaProgramar>Teste</AbaProgramar>
-            <AbaProgramar>Teste</AbaProgramar>
+            <AbaProgramar>
+              <LabelParametroProgramacao>
+              Peso
+              <span>
+                Carregamento
+              </span>
+            </LabelParametroProgramacao>
+            </AbaProgramar>
+            <AbaProgramar>
+              <LabelParametroProgramacao>
+              Volume
+              <span>
+                Carregamento
+              </span>
+            </LabelParametroProgramacao>
+            </AbaProgramar>
+            <AbaProgramar>
+              <LabelParametroProgramacao>
+              Fluxo
+              <span>
+                Carregamento
+              </span>
+            </LabelParametroProgramacao>
+            </AbaProgramar>
+
+            <AbaProgramar>
+              <LabelParametroProgramacao>
+              Tempo
+              <span>
+                Carregamento
+              </span>
+            </LabelParametroProgramacao>
+            </AbaProgramar>
           </Main>
           <Teclado style={tecladoStyle} onTeclaPressionada={handleTeclaPressionada} />
           <CaminhoDePao />
