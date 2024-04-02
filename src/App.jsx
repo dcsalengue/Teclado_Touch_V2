@@ -273,7 +273,7 @@ padding-left: 2px;
   left: 0px;
   height: 191px;
   width: 293px;
-  background-color: #2F7CC8;
+  background-color: #186ABC;
   font-size: 28px;
   box-sizing: border-box;
 `
