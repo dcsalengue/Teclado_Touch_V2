@@ -10,7 +10,7 @@ const DisplayNumerico = ({ style, valorExibido, setValorExibido, teclaPressionad
         maxDigitosInteiros = maxDigitosInteiros ? maxDigitosInteiros : 5
         maxDigitosDecimais = maxDigitosDecimais ? maxDigitosDecimais : 3
 
-        if (teclaPressionada.digito !== null) {
+        if (teclaPressionada && teclaPressionada.digito !== null) {
             var [parteInteira, parteDecimal] = valorExibido.toString().split(".");
             var lengthInteiro = parteInteira ? parteInteira.length : 0;
             var lengthDecimal = parteDecimal ? parteDecimal.length : 0;
@@ -50,7 +50,7 @@ const DisplayNumerico = ({ style, valorExibido, setValorExibido, teclaPressionad
             if (valorNumerico === 0)
                 setValorExibido('')
             else if (lengthInteiro > maxDigitosInteiros)
-                setValorExibido("OVERFLOW !");
+                setValorExibido("ERRO!");
             else
                 setValorExibido(`${parseFloat(valorNumerico).toFixed(maxDigitosDecimais)}`);
         }
