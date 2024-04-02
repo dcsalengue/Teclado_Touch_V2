@@ -124,7 +124,7 @@ const BotaoUnidade = styled.div`
     text-align: center;
     font-family: "Ubuntu", sans-serif;
     color: black;
-    background-image: url('public/imagens/unidades/IMAGEM_DERS_Unidade_droga_C1_Grande_SOLTO[310-108].BMP');
+    background-image: url('public/imagens/unidades/IMAGEM_DERS_Unidade_droga_C1_Grande_SOLTO[310-108].png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
