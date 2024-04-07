@@ -2,6 +2,7 @@ import styled from "styled-components";
 import DisplayNumerico from "../DisplayNumerico";
 
 const ItemProgramacao = ({
+    visivel,
     selecionados,          // Item está selecionado
     setSelecionados,
     cursor,               // é permitido digitar (é o item que selecionado atual)
@@ -17,6 +18,7 @@ const ItemProgramacao = ({
 }) => {
     return (
         <AbaProgramar
+            visivel={visivel}
             selecionados={selecionados}
             parametroProgramacao={parametroProgramacao}
             onClick={() => {
@@ -31,10 +33,12 @@ const ItemProgramacao = ({
             }}
         >
             <LabelParametroProgramacao>
-                {parametroProgramacao}
-                <span>
+                <SpanParametroProgramacao>
+                    {parametroProgramacao}
+                </SpanParametroProgramacao>
+                <SpanTipoInfusao>
                     {tipoInfusao}
-                </span>
+                </SpanTipoInfusao>
             </LabelParametroProgramacao>
 
             <DisplayNumerico
@@ -62,7 +66,7 @@ export default ItemProgramacao;
 const larguraBotaoUnidade = 84;
 
 const AbaProgramar = styled.div`
-    display: flex;
+    display: ${(props) => (props.visivel?.includes(props.parametroProgramacao) ? 'flex' : 'none')};    
     border: 1px solid white;
     flex-grow: 1; /* Faz com que a AbaProgramar ocupe todo o espaço disponível */
     width: 100%; /* Ocupa todo o espaço disponível horizontalmente */
@@ -71,32 +75,31 @@ const AbaProgramar = styled.div`
     justify-content: left;
     color: black;
     box-sizing: border-box;
-    background-color: ${(props) => (props.selecionados.includes(props.parametroProgramacao) ? '#81B0DE' : 'transparent')};
+    background-color: ${(props) => (props.selecionados?.includes(props.parametroProgramacao) ? '#81B0DE' : 'transparent')};
 `;
+
+const SpanParametroProgramacao = styled.span`
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+`
+const SpanTipoInfusao = styled.span`  
+    font-weight: normal;
+    font-size: 10px;
+    color: #dddddd;
+`
 
 const LabelParametroProgramacao = styled.div`
     display: flex;
     flex-direction: column;
     padding: 3px 1px 1px 3px;
     align-items: left;
-    justify-content: left;
+    justify-content: Center;
     width: 72px;
     height: 100%;
-    border-right: 1px solid white;
+    border-right: 1px solid white;       
     font-family: "Ubuntu", sans-serif;
-    font-weight: bold;
-    font-size: 16px;
-    color: white;
     box-sizing: border-box;
-    /* Estilo para o span */
-    & > span {
-        margin-top: auto;
-        margin-bottom: 2px;
-        font-family: "Ubuntu", sans-serif;
-        font-weight: normal;
-        font-size: 10px;
-        color: #dddddd;
-    }
 `;
 
 const styleDisplayNumerico = {

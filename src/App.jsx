@@ -39,7 +39,8 @@ function App() {
   const [valorExibidoTempo, setValorExibidoTempo] = useState('');
   const [valorNumericoTempo, setValorNumericoTempo] = useState(0);
 
-  const [itensSelecionados, setitensSelecionados] = useState([]); // Ao selecionar um item 
+  const [itensSelecionados, setItensSelecionados] = useState([]); // Ao selecionar um item 
+  const [itensVisiveis, setItensVisiveis] = useState([]); // Ao selecionar um item 
 
   const handleTeclaPressionada = (novoDigito) => {
     setTeclaPressionada(prevState => ({
@@ -48,178 +49,141 @@ function App() {
     }));
   };
 
-  // useEffect(() => {
-  //   console.log("E aí, isso aqui roda sempre que o componente renderizar!");
-  // });
+  useEffect(() => {
+    console.log(`
+      Dose: ${valorExibidoDose}    
+      Peso: ${valorExibidoPeso}
+      Volume: ${valorExibidoVolume}
+      Fluxo: ${valorExibidoFluxo}
+      Tempo: ${valorExibidoTempo}
+      itensVisiveis: ${itensVisiveis}
+     `);
+     
+  });
+
   const [modoInfusaoSelecionado, setModoInfusaoSelecionado] = useState('dose');
   const [tipoInfusaoSelecionado, setTipoInfusaoSelecionado] = useState('manutencao');
   const [unidadeSelecionada, setUnidadeSelecionada] = useState('mg_kg_hora');
 
-  // useEffect(() => {
-  //   //if(modoInfusaoSelecionado)
-  //   console.log(`${modoInfusaoSelecionado}`);
-  // }, [modoInfusaoSelecionado]);
+  useEffect(() => {
+    if (modoInfusaoSelecionado === 'volumetrico'){
+      setItensVisiveis(['Volume', 'Fluxo', 'Tempo'])
+      console.log(`modoInfusaoSelecionado`)
+    }
+    else {
+      if (unidadeSelecionada.toLowerCase().includes('kg')) {
+        setItensVisiveis(['Dose', 'Peso', 'Volume', 'Fluxo', 'Tempo'])
+      }
+      else {
+        setItensVisiveis(['Dose', 'Volume', 'Fluxo', 'Tempo'])
+      }
+    }
+  
 
-  return (
-    <FundoGradiente>
-      <EspacoEsquerda>
-        <ListaSelecionar nome={'modoInfusao'} value={modoInfusaoSelecionado} itens={modoInfusao} setSelecionado={setModoInfusaoSelecionado} />
-        <ListaSelecionar nome={'tipoInfusao'} value={tipoInfusaoSelecionado} itens={tipoInfusao} setSelecionado={setTipoInfusaoSelecionado} naoExibe={modoInfusaoSelecionado === 'volumetrico'} />
-        <ListaSelecionar nome={'unidades'} value={unidadeSelecionada} itens={unidades} setSelecionado={setUnidadeSelecionada} naoExibe={modoInfusaoSelecionado === 'volumetrico'} />
-      </EspacoEsquerda>
+    // console.log(`
+    //   	${modoInfusaoSelecionado}
+    //     ${tipoInfusaoSelecionado}
+    //     ${unidadeSelecionada}
+    //     `);
+}, [modoInfusaoSelecionado, tipoInfusaoSelecionado, unidadeSelecionada]);
 
-      <EspacoCentro>
-        <ContainerDisplay>
-          <BarraDeStatus />
-          <Main>
-            {/* */}
-            <ItemProgramacao
-              selecionados={itensSelecionados}
-              setSelecionados={setitensSelecionados}
-              cursor
-              parametroProgramacao={'Dose'}
-              tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
-              valorNumerico={valorNumericoDose}  // dose
-              valorExibido={valorExibidoDose}    // dose
-              setValorExibido={setValorExibidoDose}
-              teclaPressionada={teclaPressionada}
-              maxDigitosInteiros={5}
-              maxDigitosDecimais={3}
-              unidade={unidades.filter(unidade => unidade.value === unidadeSelecionada).map(unidade => unidade.nome)}
-            />
-            {/* */}
-            <ItemProgramacao
-              selecionados={itensSelecionados}
-              setSelecionados={setitensSelecionados}
-              parametroProgramacao={'Peso'}
-              tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
-              valorNumerico={valorNumericoPeso}
-              valorExibido={valorExibidoPeso}
-              setValorExibido={setValorExibidoPeso}
-              teclaPressionada={teclaPressionada}
-              maxDigitosInteiros={3}
-              maxDigitosDecimais={1}
-              unidade={'Kg'}
-            />
-            {/**/}
-            {/* */}
-            <ItemProgramacao
-              selecionados={itensSelecionados}
-              setSelecionados={setitensSelecionados}
-              parametroProgramacao={'Volume'}
-              tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
-              valorNumerico={valorNumericoVolume}
-              valorExibido={valorExibidoVolume}
-              setValorExibido={setValorExibidoVolume}
-              teclaPressionada={teclaPressionada}
-              maxDigitosInteiros={4}
-              maxDigitosDecimais={2}
-              unidade={'ml'}
-            />
-            {/* */}
-            {/* */}
-            <ItemProgramacao
-              selecionados={itensSelecionados}
-              setSelecionados={setitensSelecionados}
-              parametroProgramacao={'Fluxo'}
-              tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
-              valorNumerico={valorNumericoFluxo}
-              valorExibido={valorExibidoFluxo}
-              setValorExibido={setValorExibidoFluxo}
-              teclaPressionada={teclaPressionada}
-              maxDigitosInteiros={4}
-              maxDigitosDecimais={2}
-              unidade={'ml/h'}
-            />
-            {/* */}
-            {/* */}
-            <ItemProgramacao
-              selecionados={itensSelecionados}
-              setSelecionados={setitensSelecionados}
-              parametroProgramacao={'Tempo'}
-              tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
-              valorNumerico={valorNumericoTempo}
-              valorExibido={valorExibidoTempo}
-              setValorExibido={setValorExibidoTempo}
-              teclaPressionada={teclaPressionada}
-              maxDigitosInteiros={3}
-              maxDigitosDecimais={0}
-              unidade={null}
-              
-            />
-            {/* *}
+return (
+  <FundoGradiente>
+    <EspacoEsquerda>
+      <ListaSelecionar nome={'modoInfusao'} value={modoInfusaoSelecionado} itens={modoInfusao} setSelecionado={setModoInfusaoSelecionado} />
+      <ListaSelecionar nome={'tipoInfusao'} value={tipoInfusaoSelecionado} itens={tipoInfusao} setSelecionado={setTipoInfusaoSelecionado} naoExibe={modoInfusaoSelecionado === 'volumetrico'} />
+      <ListaSelecionar nome={'unidades'} value={unidadeSelecionada} itens={unidades} setSelecionado={setUnidadeSelecionada} naoExibe={modoInfusaoSelecionado === 'volumetrico'} />
+    </EspacoEsquerda>
 
+    <EspacoCentro>
+      <ContainerDisplay>
+        <BarraDeStatus />
+        <Main>
+          <ItemProgramacao
+            visivel={itensVisiveis}
+            selecionados={itensSelecionados}
+            setSelecionados={setItensSelecionados}
+            cursor
+            parametroProgramacao={'Dose'}
+            tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
+            valorNumerico={valorNumericoDose}  // dose
+            valorExibido={valorExibidoDose}    // dose
+            setValorExibido={setValorExibidoDose}
+            teclaPressionada={teclaPressionada}
+            maxDigitosInteiros={5}
+            maxDigitosDecimais={3}
+            unidade={unidades.filter(unidade => unidade.value === unidadeSelecionada).map(unidade => unidade.nome)}
+          />
+          <ItemProgramacao
+            visivel={itensVisiveis}
+            selecionados={itensSelecionados}
+            setSelecionados={setItensSelecionados}
+            parametroProgramacao={'Peso'}
+            tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
+            valorNumerico={valorNumericoPeso}
+            valorExibido={valorExibidoPeso}
+            setValorExibido={setValorExibidoPeso}
+            teclaPressionada={teclaPressionada}
+            maxDigitosInteiros={3}
+            maxDigitosDecimais={1}
+            unidade={'Kg'}
+          />
+          <ItemProgramacao
+            visivel={itensVisiveis}
+            selecionados={itensSelecionados}
+            setSelecionados={setItensSelecionados}
+            parametroProgramacao={'Volume'}
+            tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
+            valorNumerico={valorNumericoVolume}
+            valorExibido={valorExibidoVolume}
+            setValorExibido={setValorExibidoVolume}
+            teclaPressionada={teclaPressionada}
+            maxDigitosInteiros={4}
+            maxDigitosDecimais={2}
+            unidade={'ml'}
+          />
+          <ItemProgramacao
+            visivel={itensVisiveis}
+            selecionados={itensSelecionados}
+            setSelecionados={setItensSelecionados}
+            parametroProgramacao={'Fluxo'}
+            tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
+            valorNumerico={valorNumericoFluxo}
+            valorExibido={valorExibidoFluxo}
+            setValorExibido={setValorExibidoFluxo}
+            teclaPressionada={teclaPressionada}
+            maxDigitosInteiros={4}
+            maxDigitosDecimais={2}
+            unidade={'ml/h'}
+          />
+          <ItemProgramacao
+            visivel={itensVisiveis}
+            selecionados={itensSelecionados}
+            setSelecionados={setItensSelecionados}
+            parametroProgramacao={'Tempo'}
+            tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
+            valorNumerico={valorNumericoTempo}
+            valorExibido={valorExibidoTempo}
+            setValorExibido={setValorExibidoTempo}
+            teclaPressionada={teclaPressionada}
+            maxDigitosInteiros={3}
+            maxDigitosDecimais={0}
+            unidade={null}
 
-            {/* *} 
-            <AbaProgramar>
-              <LabelParametroProgramacao tipoInfusao={tipoInfusaoSelecionado} parametroProgramacao={"Dose"}>
-                Dose
-                <span>
-                  Carregamento
-                </span>
-              </LabelParametroProgramacao>
-              <div style={{display: "flex", flexDirection: "row", }}>
-              <DisplayNumerico
-                style={styleDisplayNumerico}
-                valorNumerico={valorNumerico}
-                valorExibido={valorExibido}
-                setValorExibido={setValorExibido}
-                teclaPressionada={teclaPressionada}
-                maxDigitosInteiros={5}
-                maxDigitosDecimais={3}
-              />
-              <div style={divUnidade}>
-                mmol/Kg/min
-              </div>
-              </div>
-            </AbaProgramar>
-            <AbaProgramar>
-              <LabelParametroProgramacao>
-              Peso
-              <span>
-                Carregamento
-              </span>
-            </LabelParametroProgramacao>
-            </AbaProgramar>
-            <AbaProgramar>
-              <LabelParametroProgramacao>
-              Volume
-              <span>
-                Carregamento
-              </span>
-            </LabelParametroProgramacao>
-            </AbaProgramar>
-            <AbaProgramar>
-              <LabelParametroProgramacao>
-              Fluxo
-              <span>
-                Carregamento
-              </span>
-            </LabelParametroProgramacao>
-            </AbaProgramar>
+          />
+        </Main>
+        <Teclado style={tecladoStyle} onTeclaPressionada={handleTeclaPressionada} />
+        <CaminhoDePao />
+      </ContainerDisplay>
+      <button onClick={() => { setValorExibidoVolume(getRandomIntInclusive(10000, 99999)); }}>Valor Exibido</button>
+      <button onClick={() => { setValorNumericoPeso(Math.random() * 25358); }}>Valor Númerico</button>
 
-            <AbaProgramar>
-              <LabelParametroProgramacao>
-              Tempo
-              <span>
-                Carregamento
-              </span>
-            </LabelParametroProgramacao>
-            </AbaProgramar> 
-            {/**/}
-          </Main>
-          <Teclado style={tecladoStyle} onTeclaPressionada={handleTeclaPressionada} />
-          <CaminhoDePao />
-        </ContainerDisplay>
-        <button onClick={() => { setValorExibidoVolume(getRandomIntInclusive(10000, 99999)); }}>Valor Exibido</button>
-        <button onClick={() => { setValorNumericoPeso(Math.random() * 25358); }}>Valor Númerico</button>
-
-      </EspacoCentro>
-      <EspacoDireita></EspacoDireita>
+    </EspacoCentro>
+    <EspacoDireita></EspacoDireita>
 
 
-    </FundoGradiente>
-  );
+  </FundoGradiente>
+);
 }
 
 export default App;
