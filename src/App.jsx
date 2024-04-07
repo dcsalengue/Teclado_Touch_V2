@@ -1,16 +1,16 @@
 
-import styled from "styled-components"
-import { useState, useEffect } from "react";
+import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 
-import modoInfusao from "./componentes/modoInfusao.json"
-import tipoInfusao from "./componentes/tipoInfusao.json"
-import unidades from "./componentes/unidades.json"
+import modoInfusao from './data/modoInfusao.json';
+import tipoInfusao from './data/tipoInfusao.json';
+import unidades from './data/unidades.json';
 
-import Teclado from "./componentes/Teclado"
+import Teclado from './componentes/Teclado';
 
-import DisplayNumerico from "./componentes/DisplayNumerico";
-import ListaSelecionar from "./componentes/ListaSelecionar"
-import ItemProgramacao from "./componentes/ItemProgramacao"
+import DisplayNumerico from './componentes/DisplayNumerico';
+import ListaSelecionar from './componentes/ListaSelecionar';
+import ItemProgramacao from './componentes/ItemProgramacao';
 
 
 
@@ -39,6 +39,8 @@ function App() {
   const [valorExibidoTempo, setValorExibidoTempo] = useState('');
   const [valorNumericoTempo, setValorNumericoTempo] = useState(0);
 
+  const [itensSelecionados, setitensSelecionados] = useState([]); // Ao selecionar um item 
+
   const handleTeclaPressionada = (novoDigito) => {
     setTeclaPressionada(prevState => ({
       digito: novoDigito,
@@ -61,9 +63,9 @@ function App() {
   return (
     <FundoGradiente>
       <EspacoEsquerda>
-        <ListaSelecionar nome={"modoInfusao"} value={modoInfusaoSelecionado} itens={modoInfusao} setSelecionado={setModoInfusaoSelecionado} />
-        <ListaSelecionar nome={"tipoInfusao"} value={tipoInfusaoSelecionado} itens={tipoInfusao} setSelecionado={setTipoInfusaoSelecionado} naoExibe={modoInfusaoSelecionado === "volumetrico"} />
-        <ListaSelecionar nome={"unidades"} value={unidadeSelecionada} itens={unidades} setSelecionado={setUnidadeSelecionada} naoExibe={modoInfusaoSelecionado === "volumetrico"} />
+        <ListaSelecionar nome={'modoInfusao'} value={modoInfusaoSelecionado} itens={modoInfusao} setSelecionado={setModoInfusaoSelecionado} />
+        <ListaSelecionar nome={'tipoInfusao'} value={tipoInfusaoSelecionado} itens={tipoInfusao} setSelecionado={setTipoInfusaoSelecionado} naoExibe={modoInfusaoSelecionado === 'volumetrico'} />
+        <ListaSelecionar nome={'unidades'} value={unidadeSelecionada} itens={unidades} setSelecionado={setUnidadeSelecionada} naoExibe={modoInfusaoSelecionado === 'volumetrico'} />
       </EspacoEsquerda>
 
       <EspacoCentro>
@@ -72,9 +74,10 @@ function App() {
           <Main>
             {/* */}
             <ItemProgramacao
-              selecionado
+              selecionados={itensSelecionados}
+              setSelecionados={setitensSelecionados}
               cursor
-              parametroProgramacao={"Dose"}
+              parametroProgramacao={'Dose'}
               tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
               valorNumerico={valorNumericoDose}  // dose
               valorExibido={valorExibidoDose}    // dose
@@ -86,7 +89,9 @@ function App() {
             />
             {/* */}
             <ItemProgramacao
-              parametroProgramacao={"Peso"}
+              selecionados={itensSelecionados}
+              setSelecionados={setitensSelecionados}
+              parametroProgramacao={'Peso'}
               tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
               valorNumerico={valorNumericoPeso}
               valorExibido={valorExibidoPeso}
@@ -94,12 +99,14 @@ function App() {
               teclaPressionada={teclaPressionada}
               maxDigitosInteiros={3}
               maxDigitosDecimais={1}
-              unidade={"Kg"}
+              unidade={'Kg'}
             />
             {/**/}
             {/* */}
             <ItemProgramacao
-              parametroProgramacao={"Volume"}
+              selecionados={itensSelecionados}
+              setSelecionados={setitensSelecionados}
+              parametroProgramacao={'Volume'}
               tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
               valorNumerico={valorNumericoVolume}
               valorExibido={valorExibidoVolume}
@@ -107,12 +114,14 @@ function App() {
               teclaPressionada={teclaPressionada}
               maxDigitosInteiros={4}
               maxDigitosDecimais={2}
-              unidade={"ml"}
+              unidade={'ml'}
             />
             {/* */}
             {/* */}
             <ItemProgramacao
-              parametroProgramacao={"Fluxo"}
+              selecionados={itensSelecionados}
+              setSelecionados={setitensSelecionados}
+              parametroProgramacao={'Fluxo'}
               tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
               valorNumerico={valorNumericoFluxo}
               valorExibido={valorExibidoFluxo}
@@ -120,12 +129,14 @@ function App() {
               teclaPressionada={teclaPressionada}
               maxDigitosInteiros={4}
               maxDigitosDecimais={2}
-              unidade={"ml/h"}
+              unidade={'ml/h'}
             />
             {/* */}
             {/* */}
             <ItemProgramacao
-              parametroProgramacao={"Tempo"}
+              selecionados={itensSelecionados}
+              setSelecionados={setitensSelecionados}
+              parametroProgramacao={'Tempo'}
               tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
               valorNumerico={valorNumericoTempo}
               valorExibido={valorExibidoTempo}
@@ -134,6 +145,7 @@ function App() {
               maxDigitosInteiros={3}
               maxDigitosDecimais={0}
               unidade={null}
+              
             />
             {/* *}
 
@@ -199,18 +211,18 @@ function App() {
           <Teclado style={tecladoStyle} onTeclaPressionada={handleTeclaPressionada} />
           <CaminhoDePao />
         </ContainerDisplay>
-        <button onClick={() => { setValorExibidoVolume(getRandomIntInclusive(10000, 99999)) }}>Valor Exibido</button>
-        <button onClick={() => { setValorNumericoPeso(Math.random() * 25358) }}>Valor Númerico</button>
+        <button onClick={() => { setValorExibidoVolume(getRandomIntInclusive(10000, 99999)); }}>Valor Exibido</button>
+        <button onClick={() => { setValorNumericoPeso(Math.random() * 25358); }}>Valor Númerico</button>
 
       </EspacoCentro>
       <EspacoDireita></EspacoDireita>
 
 
     </FundoGradiente>
-  )
+  );
 }
 
-export default App
+export default App;
 //<DivTeste> {teclaPressionada} </DivTeste>
 
 
@@ -223,7 +235,7 @@ const ContainerDisplay = styled.div`
   height: 274px;
   border: 2px solid blue;
   background-color:white;
-`
+`;
 const tecladoStyle = {
   position: 'absolute',
   right: '0px',
@@ -238,7 +250,7 @@ const FundoGradiente = styled.div`
   background: linear-gradient(174.61deg, #041833 4.16%, #04244F 48%, #154580 96.76%);
   width: 100%;
   min-height: 100vh;
-  `
+  `;
 const DivTeste = styled.div`
   width: auto;
   height: 20px;
@@ -246,7 +258,7 @@ const DivTeste = styled.div`
   display:flex;
   align-items: center;
   justify-content:center;
- `
+ `;
 const BarraDeStatus = styled.header`
 position: absolute;
 top: 0px;
@@ -254,14 +266,14 @@ height: 63px;
 width: 100%;
 background-color: #FF00FF;
 
-`
+`;
 const CaminhoDePao = styled.footer`
   position: absolute;
   bottom: 0px;
   height: 20px;
   width: 100%;
   background-color: #FF00FF;
-`
+`;
 const Main = styled.main`
 padding-left: 2px;
   display: flex;
@@ -276,7 +288,7 @@ padding-left: 2px;
   background-color: #186ABC;
   font-size: 28px;
   box-sizing: border-box;
-`
+`;
 const EspacoEsquerda = styled.section`
   padding: 2px;
   flex-grow: 1;
@@ -286,11 +298,11 @@ const EspacoEsquerda = styled.section`
   justify-content:center;
   min-height: 100%;
   background-color: white;
-`
+`;
 
 const EspacoCentro = styled.section`
   min-width: 490px;
-`
+`;
 
 const EspacoDireita = styled.section`
   flex-grow: 1;
@@ -299,7 +311,7 @@ const EspacoDireita = styled.section`
   justify-content:center;
   background-color: white;
   
-`
+`;
 
 const AbaProgramar = styled.div`
   display: flex;
@@ -312,7 +324,7 @@ const AbaProgramar = styled.div`
   
   color: black;
   box-sizing: border-box;
-`
+`;
 
 const LabelParametroProgramacao = styled.div`
   display: flex;
@@ -341,26 +353,26 @@ const LabelParametroProgramacao = styled.div`
 
 
 const styleDisplayNumerico = {
-  color: "black",
-  backgroundColor: "white",
-  marginLeft: "2px",
-  marginRight: "80px",
+  color: 'black',
+  backgroundColor: 'white',
+  marginLeft: '2px',
+  marginRight: '80px',
 
-}
+};
 
 const divUnidade = {
-  display: "flex",
-  position: "fixed",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "80px",
-  height: "25px",
-  margin_right: "0px",
-  right: "272px",
-  backcground: "red",
-  backcgroundColor: "red",
+  display: 'flex',
+  position: 'fixed',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '80px',
+  height: '25px',
+  margin_right: '0px',
+  right: '272px',
+  backcground: 'red',
+  backcgroundColor: 'red',
   border: '1px solid black',
-  fontSize: "12px",
+  fontSize: '12px',
 
-  fontFamily: "Ubunto, sans-serif"
-}
+  fontFamily: 'Ubunto, sans-serif'
+};

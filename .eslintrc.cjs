@@ -6,12 +6,29 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
+     'plugin:styled-components/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    ecmaVersion: 2021,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  plugins: ['react', 'react-hooks', 'react-refresh', 'styled-components'],
+  settings: {
+    react: {
+      "version": "detect",  // React version. "detect" escolhe automaticamente a versão que você instalou.
+    }
+  },
   rules: {
+    "react/react-in-jsx-scope": "off",
+    "indent": [
+      "error",
+      2
+    ],
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': [
       'warn',
