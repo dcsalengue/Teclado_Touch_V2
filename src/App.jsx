@@ -109,6 +109,7 @@ return (
             valorNumerico={valorNumericoDose}  // dose
             valorExibido={valorExibidoDose}    // dose
             setValorExibido={setValorExibidoDose}
+            setValorNumerico={setValorNumericoDose}
             teclaPressionada={teclaPressionada}
             maxDigitosInteiros={5}
             maxDigitosDecimais={3}
@@ -122,7 +123,8 @@ return (
             tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
             valorNumerico={valorNumericoPeso}
             valorExibido={valorExibidoPeso}
-            setValorExibido={setValorExibidoPeso}
+            setValorExibido={setValorExibidoPeso}            
+            setValorNumerico={setValorNumericoPeso}
             teclaPressionada={teclaPressionada}
             maxDigitosInteiros={3}
             maxDigitosDecimais={1}
@@ -136,7 +138,8 @@ return (
             tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
             valorNumerico={valorNumericoVolume}
             valorExibido={valorExibidoVolume}
-            setValorExibido={setValorExibidoVolume}
+            setValorExibido={setValorExibidoVolume}           
+            setValorNumerico={setValorNumericoVolume}
             teclaPressionada={teclaPressionada}
             maxDigitosInteiros={4}
             maxDigitosDecimais={2}
@@ -150,7 +153,8 @@ return (
             tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
             valorNumerico={valorNumericoFluxo}
             valorExibido={valorExibidoFluxo}
-            setValorExibido={setValorExibidoFluxo}
+            setValorExibido={setValorExibidoFluxo}         
+            setValorNumerico={setValorNumericoFluxo}
             teclaPressionada={teclaPressionada}
             maxDigitosInteiros={4}
             maxDigitosDecimais={2}
@@ -164,7 +168,8 @@ return (
             tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
             valorNumerico={valorNumericoTempo}
             valorExibido={valorExibidoTempo}
-            setValorExibido={setValorExibidoTempo}
+            setValorExibido={setValorExibidoTempo}       
+            setValorNumerico={setValorNumericoTempo}
             teclaPressionada={teclaPressionada}
             maxDigitosInteiros={3}
             maxDigitosDecimais={0}

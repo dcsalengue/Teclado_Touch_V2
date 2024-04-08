@@ -9,6 +9,7 @@ const ItemProgramacao = ({
     parametroProgramacao, // Dose; Peso; Volume; Fluxo ; Tempo
     tipoInfusao,          // Manutenção; Carregamento ; Bolus
     valorNumerico,        // Valor em ponto flutuante que irá alterar o valor exibido
+    setValorNumerico,
     valorExibido,         // Alterar o valor exibido diretamente 
     setValorExibido,      // Função para alterar o estado do valor exibido
     teclaPressionada,     // Valor da tecla pressionada
@@ -43,9 +44,11 @@ const ItemProgramacao = ({
 
             <DisplayNumerico
                 style={styleDisplayNumerico}
+                selecionado={selecionados?.includes(parametroProgramacao) ? true : false }
                 valorNumerico={valorNumerico}
                 valorExibido={valorExibido}
                 setValorExibido={setValorExibido}
+                setValorNumerico={setValorNumerico}
                 teclaPressionada={selecionados.includes(parametroProgramacao) ? teclaPressionada : null}
                 maxDigitosInteiros={maxDigitosInteiros}
                 maxDigitosDecimais={maxDigitosDecimais}
@@ -83,14 +86,15 @@ const SpanParametroProgramacao = styled.span`
     font-size: 16px;
     color: white;
 `
-const SpanTipoInfusao = styled.span`  
+const SpanTipoInfusao = styled.span`
     font-weight: normal;
     font-size: 10px;
     color: #dddddd;
 `
 
 const LabelParametroProgramacao = styled.div`
-    display: flex;
+    display: flex;    
+    user-select: none;
     flex-direction: column;
     padding: 3px 1px 1px 3px;
     align-items: left;

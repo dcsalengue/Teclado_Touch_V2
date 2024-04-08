@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 
-const DisplayNumerico = ({ style, valorExibido, setValorExibido, teclaPressionada, valorNumerico, maxDigitosInteiros, maxDigitosDecimais }) => {
+const DisplayNumerico = ({ style, selecionado, valorExibido, setValorExibido, teclaPressionada, valorNumerico, setValorNumerico, maxDigitosInteiros, maxDigitosDecimais }) => {
 
 
     // Ao rceber valor númerico e dígito null converte valor exibido para o número de dígitos especificado
@@ -38,10 +38,11 @@ const DisplayNumerico = ({ style, valorExibido, setValorExibido, teclaPressionad
                 novoValor = valorExibido.toString().slice(0, -1)
             }
             setValorExibido(novoValor); // Aqui altera o estado para renderizar a tela
+            setValorNumerico(novoValor); 
             teclaPressionada.digito = null
         }
         // Se recebeu um valor numérico
-        else {
+        else if(!selecionado) { // Se não estiver selecionado e editando
             var [parteInteira, parteDecimal] = valorNumerico.toString().split(".");
             var lengthInteiro = parteInteira ? parteInteira.length : 0;
             var lengthDecimal = parteDecimal ? parteDecimal.length : 0;
@@ -51,8 +52,11 @@ const DisplayNumerico = ({ style, valorExibido, setValorExibido, teclaPressionad
                 setValorExibido('')
             else if (lengthInteiro > maxDigitosInteiros)
                 setValorExibido("ERRO!");
-            else
-                setValorExibido(`${parseFloat(valorNumerico).toFixed(maxDigitosDecimais)}`);
+            else{
+                //setValorExibido(`${parseFloat(valorNumerico).toFixed(maxDigitosDecimais)}`);
+                const valor = parseFloat(valorNumerico).toFixed(maxDigitosDecimais).replace(/\.?0*$/, '');
+                setValorExibido(valor);
+            }
         }
 
     }, [teclaPressionada, valorNumerico]); // Agora a dependência é o objeto `teclaPressionada`
