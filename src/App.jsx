@@ -22,25 +22,30 @@ function getRandomIntInclusive(min, max) {
 
 function App() {
   //const [teclaPressionada, setTeclaPressionada] = useState(null);
-  const [teclaPressionada, setTeclaPressionada] = useState({ digito: null, contador: 0 });
+  const [teclaPressionada, setTeclaPressionada] = useState({ digito: null, contador: 0 }); // 1
 
-  const [valorExibidoDose, setValorExibidoDose] = useState('');
-  const [valorNumericoDose, setValorNumericoDose] = useState(0);
+  const [valorExibidoDose, setValorExibidoDose] = useState('');  // 2
+  const [valorNumericoDose, setValorNumericoDose] = useState(0);  // 3
 
-  const [valorExibidoPeso, setValorExibidoPeso] = useState('');
-  const [valorNumericoPeso, setValorNumericoPeso] = useState(0);
+  const [valorExibidoPeso, setValorExibidoPeso] = useState('');  // 4 
+  const [valorNumericoPeso, setValorNumericoPeso] = useState(0); // 5
 
-  const [valorExibidoVolume, setValorExibidoVolume] = useState('');
-  const [valorNumericoVolume, setValorNumericoVolume] = useState(0);
+  const [valorExibidoVolume, setValorExibidoVolume] = useState(''); // 6
+  const [valorNumericoVolume, setValorNumericoVolume] = useState(0); // 7
 
-  const [valorExibidoFluxo, setValorExibidoFluxo] = useState('');
-  const [valorNumericoFluxo, setValorNumericoFluxo] = useState(0);
+  const [valorExibidoFluxo, setValorExibidoFluxo] = useState(''); // 8
+  const [valorNumericoFluxo, setValorNumericoFluxo] = useState(0); // 9
 
-  const [valorExibidoTempo, setValorExibidoTempo] = useState('');
-  const [valorNumericoTempo, setValorNumericoTempo] = useState(0);
+  const [valorExibidoTempo, setValorExibidoTempo] = useState(''); // 10
+  const [valorNumericoTempo, setValorNumericoTempo] = useState(0); // 11
 
-  const [itensSelecionados, setItensSelecionados] = useState([]); // Ao selecionar um item 
-  const [itensVisiveis, setItensVisiveis] = useState([]); // Ao selecionar um item 
+  const [itensSelecionados, setItensSelecionados] = useState([]); // 12 // Ao selecionar um item 
+  const [itensVisiveis, setItensVisiveis] = useState([]); // 13 // Ao selecionar um item 
+  const [itensEditando, setItensEditando] = useState([]); // 14 // Ao selecionar um item 
+
+  const [modoInfusaoSelecionado, setModoInfusaoSelecionado] = useState('dose'); // 15
+  const [tipoInfusaoSelecionado, setTipoInfusaoSelecionado] = useState('manutencao'); // 16
+  const [unidadeSelecionada, setUnidadeSelecionada] = useState('mg_kg_hora'); // 17
 
   const handleTeclaPressionada = (novoDigito) => {
     setTeclaPressionada(prevState => ({
@@ -49,21 +54,19 @@ function App() {
     }));
   };
 
-  useEffect(() => {
-    console.log(`
-      Dose: ${valorExibidoDose}    
-      Peso: ${valorExibidoPeso}
-      Volume: ${valorExibidoVolume}
-      Fluxo: ${valorExibidoFluxo}
-      Tempo: ${valorExibidoTempo}
-      itensVisiveis: ${itensVisiveis}
-     `);
+  // useEffect(() => {
+  //   console.log(`
+  //     Dose: ${valorExibidoDose}    
+  //     Peso: ${valorExibidoPeso}
+  //     Volume: ${valorExibidoVolume}
+  //     Fluxo: ${valorExibidoFluxo}
+  //     Tempo: ${valorExibidoTempo}
+  //     itensVisiveis: ${itensVisiveis}
+  //    `);
 
-  });
+  // });
 
-  const [modoInfusaoSelecionado, setModoInfusaoSelecionado] = useState('dose');
-  const [tipoInfusaoSelecionado, setTipoInfusaoSelecionado] = useState('manutencao');
-  const [unidadeSelecionada, setUnidadeSelecionada] = useState('mg_kg_hora');
+ 
 
   useEffect(() => {
     if (modoInfusaoSelecionado === 'volumetrico') {
@@ -105,7 +108,8 @@ function App() {
                 visivel={itensVisiveis}
                 selecionados={itensSelecionados}
                 setSelecionados={setItensSelecionados}
-                cursor
+                editando={itensEditando}
+                setEditando={setItensEditando}
                 parametroProgramacao={'Dose'}
                 tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
                 valorNumerico={valorNumericoDose}  // dose
@@ -121,6 +125,8 @@ function App() {
                 visivel={itensVisiveis}
                 selecionados={itensSelecionados}
                 setSelecionados={setItensSelecionados}
+                editando={itensEditando}
+                setEditando={setItensEditando}
                 parametroProgramacao={'Peso'}
                 tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
                 valorNumerico={valorNumericoPeso}
@@ -136,6 +142,8 @@ function App() {
                 visivel={itensVisiveis}
                 selecionados={itensSelecionados}
                 setSelecionados={setItensSelecionados}
+                editando={itensEditando}
+                setEditando={setItensEditando}
                 parametroProgramacao={'Volume'}
                 tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
                 valorNumerico={valorNumericoVolume}
@@ -151,6 +159,8 @@ function App() {
                 visivel={itensVisiveis}
                 selecionados={itensSelecionados}
                 setSelecionados={setItensSelecionados}
+                editando={itensEditando}
+                setEditando={setItensEditando}
                 parametroProgramacao={'Fluxo'}
                 tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
                 valorNumerico={valorNumericoFluxo}
@@ -166,6 +176,8 @@ function App() {
                 visivel={itensVisiveis}
                 selecionados={itensSelecionados}
                 setSelecionados={setItensSelecionados}
+                editando={itensEditando}
+                setEditando={setItensEditando}
                 parametroProgramacao={'Tempo'}
                 tipoInfusao={tipoInfusao.filter(tipoInfusao => tipoInfusao.value === tipoInfusaoSelecionado).map(tipoInfusao => tipoInfusao.nome)}
                 valorNumerico={valorNumericoTempo}

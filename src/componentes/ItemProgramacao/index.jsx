@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import DisplayNumerico from "../DisplayNumerico";
 
+
+
 const ItemProgramacao = ({
     visivel,
-    selecionados,          // Item está selecionado
-    setSelecionados,
-    cursor,               // é permitido digitar (é o item que selecionado atual)
+    selecionados,         // Itens  selecionados
+    setSelecionados,      // Função para alterar o estado selecionado
+    editando,             // Item com o foco do teclado para edição      
+    setEditando,          // Função para alterar o estado editando
     parametroProgramacao, // Dose; Peso; Volume; Fluxo ; Tempo
     tipoInfusao,          // Manutenção; Carregamento ; Bolus
     valorNumerico,        // Valor em ponto flutuante que irá alterar o valor exibido
@@ -23,14 +26,18 @@ const ItemProgramacao = ({
             selecionados={selecionados}
             parametroProgramacao={parametroProgramacao}
             onClick={() => {
-                console.log(`${valorNumerico} ${valorExibido}`);
+                
                 if (!selecionados.includes(parametroProgramacao)) {
                     // Validações aqui 
                     // SetEditavel 
                     // Verifica qual parâmetro deve ser retirado da seleção e qual manter
-                    setSelecionados([parametroProgramacao]);
-                    console.log(`ItemProgramacao ${parametroProgramacao}`);
+                    setSelecionados([parametroProgramacao]);              
                 }
+                if (!editando.includes(parametroProgramacao)) {
+                    setEditando([parametroProgramacao])    
+                }
+                
+
             }}
         >
             <LabelParametroProgramacao>
@@ -43,7 +50,9 @@ const ItemProgramacao = ({
             </LabelParametroProgramacao>
             <DisplayNumerico
                 //style={styleDisplayNumerico}
-                selecionado={selecionados?.includes(parametroProgramacao) ? true : false}
+                selecionado={selecionados?.includes(parametroProgramacao) ? "true" : "false"}
+                editando={editando}
+                parametroProgramacao={parametroProgramacao}
                 valorNumerico={valorNumerico}
                 valorExibido={valorExibido}
                 setValorExibido={setValorExibido}
@@ -52,7 +61,7 @@ const ItemProgramacao = ({
                 maxDigitosInteiros={maxDigitosInteiros}
                 maxDigitosDecimais={maxDigitosDecimais}
             />
-            
+
             <ContainerUnidade>
                 {unidade !== null && (
                     <BotaoUnidade>
@@ -128,8 +137,10 @@ const styleDisplayNumerico = {
 };
 
 const ContainerUnidade = styled.span`
-
-    position: relative; /* Defina o posicionamento relativo no pai */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   // position: relative; /* Defina o posicionamento relativo no pai */
     height: 100%; /* Ajuste a altura conforme necessário */
     width: 90px;
     right: 0px;    
@@ -139,7 +150,7 @@ const ContainerUnidade = styled.span`
     }
 `
 const BotaoUnidade = styled.div`
-    position: absolute;
+    //position: absolute;
     bottom: 2px;
     right:0px;
     display: flex;
