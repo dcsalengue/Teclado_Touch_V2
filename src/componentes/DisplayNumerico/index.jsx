@@ -76,7 +76,8 @@ const DisplayNumerico = ({ style, selecionado, editando, parametroProgramacao, v
             else
             setCursor("false")
         }, 500);
-
+        if (parametroProgramacao !== editando) 
+            setCursor("false")
         return () => {
             clearInterval(intervalID);
         };
@@ -109,7 +110,7 @@ const SpanDisplayNumerico = styled.span`
     font-size: 28px;
     background-color: ${(props) => (props.selecionado === "true" ? 'white' : 'transparent')};
     color: ${(props) => (props.selecionado === "true" ? 'black' : 'white')};
-    border-right: ${(props) => (props.cursor === "true" ? `2px solid black` : `2px solid transparent`)};
+    border-right: ${(props) => (props.cursor === "true" ? `2px solid black` : props.selecionado === "true" ?  `2px solid #81B0DE`: `2px solid #186ABC` )};
     box-sizing: border-box;
 `;
 
