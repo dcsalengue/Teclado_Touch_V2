@@ -41,10 +41,9 @@ const ItemProgramacao = ({
                     {tipoInfusao}
                 </SpanTipoInfusao>
             </LabelParametroProgramacao>
-
             <DisplayNumerico
-                style={styleDisplayNumerico}
-                selecionado={selecionados?.includes(parametroProgramacao) ? true : false }
+                //style={styleDisplayNumerico}
+                selecionado={selecionados?.includes(parametroProgramacao) ? true : false}
                 valorNumerico={valorNumerico}
                 valorExibido={valorExibido}
                 setValorExibido={setValorExibido}
@@ -53,13 +52,16 @@ const ItemProgramacao = ({
                 maxDigitosInteiros={maxDigitosInteiros}
                 maxDigitosDecimais={maxDigitosDecimais}
             />
-            <div style={styleDivPaiUnidade}>
+            
+            <ContainerUnidade>
                 {unidade !== null && (
                     <BotaoUnidade>
                         {unidade}
                     </BotaoUnidade>
                 )}
-            </div>
+            </ContainerUnidade>
+
+
         </AbaProgramar>
     );
 };
@@ -69,62 +71,73 @@ export default ItemProgramacao;
 const larguraBotaoUnidade = 84;
 
 const AbaProgramar = styled.div`
-    display: ${(props) => (props.visivel?.includes(props.parametroProgramacao) ? 'flex' : 'none')};    
+    display: ${(props) => (props.visivel?.includes(props.parametroProgramacao) ? 'flex' : 'none')};  
+    position: relative; /* Adicione posição relativa para permitir o posicionamento absoluto do filho */  
     border: 1px solid white;
     flex-grow: 1; /* Faz com que a AbaProgramar ocupe todo o espaço disponível */
     width: 100%; /* Ocupa todo o espaço disponível horizontalmente */
     height: 100%; /* Ocupa todo o espaço disponível verticalmente */
     align-items: center;
-    justify-content: left;
+    justify-content: right;
     color: black;
     box-sizing: border-box;
     background-color: ${(props) => (props.selecionados?.includes(props.parametroProgramacao) ? '#81B0DE' : 'transparent')};
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 const SpanParametroProgramacao = styled.span`
     font-weight: bold;
     font-size: 16px;
     color: white;
+    margin-left: 2px;
 `
 const SpanTipoInfusao = styled.span`
     font-weight: normal;
     font-size: 10px;
-    color: #dddddd;
+    color: white;    
+    margin-left: 2px;
 `
 
-const LabelParametroProgramacao = styled.div`
+const LabelParametroProgramacao = styled.span`
     display: flex;    
+    position: absolute;
     user-select: none;
     flex-direction: column;
-    padding: 3px 1px 1px 3px;
     align-items: left;
     justify-content: Center;
-    width: 72px;
+    width: 70px;
     height: 100%;
+    left: 0px;
     border-right: 1px solid white;       
     font-family: "Ubuntu", sans-serif;
-    box-sizing: border-box;
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 const styleDisplayNumerico = {
     color: "black",
     backgroundColor: "white",
     marginLeft: "2px",
-    marginRight: "92px",
+    marginRight: "2px",
     textAlign: "right",
     paddingRight: "2px",
-    flexGrow: 1,
-    fontSize: "28px",
+    fontSize: "30px",
 };
 
-const styleDivPaiUnidade = {
-    position: "relative", /* Defina o posicionamento relativo no pai */
-    height: '100%', /* Ajuste a altura conforme necessário */
-    width: "auto",
-    marginRight: "1px",
-    backgroundColor: "red",
-};
+const ContainerUnidade = styled.span`
 
+    position: relative; /* Defina o posicionamento relativo no pai */
+    height: 100%; /* Ajuste a altura conforme necessário */
+    width: 90px;
+    right: 0px;    
+    margin-right: 1px;
+    &:hover {
+        cursor: pointer;
+    }
+`
 const BotaoUnidade = styled.div`
     position: absolute;
     bottom: 2px;
@@ -136,7 +149,6 @@ const BotaoUnidade = styled.div`
     margin-bottom: 0px;
     padding-bottom:2px;
     height: 25px;
-    //background-color: green;
     width: 90px;
     margin-right: 0px;
     font-size: 12px;

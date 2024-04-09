@@ -38,11 +38,11 @@ const DisplayNumerico = ({ style, selecionado, valorExibido, setValorExibido, te
                 novoValor = valorExibido.toString().slice(0, -1)
             }
             setValorExibido(novoValor); // Aqui altera o estado para renderizar a tela
-            setValorNumerico(novoValor); 
+            setValorNumerico(novoValor);
             teclaPressionada.digito = null
         }
         // Se recebeu um valor numérico
-        else if(!selecionado) { // Se não estiver selecionado e editando
+        else if (!selecionado) { // Se não estiver selecionado e editando
             var [parteInteira, parteDecimal] = valorNumerico.toString().split(".");
             var lengthInteiro = parteInteira ? parteInteira.length : 0;
             var lengthDecimal = parteDecimal ? parteDecimal.length : 0;
@@ -52,7 +52,7 @@ const DisplayNumerico = ({ style, selecionado, valorExibido, setValorExibido, te
                 setValorExibido('')
             else if (lengthInteiro > maxDigitosInteiros)
                 setValorExibido("ERRO!");
-            else{
+            else {
                 //setValorExibido(`${parseFloat(valorNumerico).toFixed(maxDigitosDecimais)}`);
                 const valor = parseFloat(valorNumerico).toFixed(maxDigitosDecimais).replace(/\.?0*$/, '');
                 setValorExibido(valor);
@@ -64,10 +64,22 @@ const DisplayNumerico = ({ style, selecionado, valorExibido, setValorExibido, te
 
 
     return (
-        <div style={style}>
+        <SpanDisplayNumerico selecionado={selecionado}>
             {valorExibido}
-        </div>
+        </SpanDisplayNumerico>
     )
 }
 
 export default DisplayNumerico
+
+const SpanDisplayNumerico = styled.span`
+    color: black;
+    background-color: white;
+    margin-left: 2px;
+    margin-right: 2px;
+    text-align: right;
+    padding-right: 2px;
+    font-size: 28px;
+    background-color: ${(props) => (props.selecionado ? 'white' : 'transparent')};
+    color: ${(props) => (props.selecionado ? 'black' : 'white')};
+    `
