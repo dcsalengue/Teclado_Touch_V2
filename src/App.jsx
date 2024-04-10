@@ -13,6 +13,7 @@ import ListaSelecionar from './componentes/ListaSelecionar';
 import ItemProgramacao from './componentes/ItemProgramacao';
 
 
+import EstilosGlobais from "./componentes/EstilosGlobais"
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -66,7 +67,7 @@ function App() {
 
   // });
 
- 
+
 
   useEffect(() => {
     if (modoInfusaoSelecionado === 'volumetrico') {
@@ -91,7 +92,7 @@ function App() {
   }, [modoInfusaoSelecionado, tipoInfusaoSelecionado, unidadeSelecionada]);
 
   return (
-    <>
+    <MainContainer>
       <Header />
       <FundoGradiente>
         <EspacoEsquerda>
@@ -203,37 +204,37 @@ function App() {
 
       </FundoGradiente>
       <Footer />
-    </>
+      <EstilosGlobais />  
+    </MainContainer>
 
   );
 }
 
 export default App;
 //<DivTeste> {teclaPressionada} </DivTeste>
-
 const MainContainer = styled.div`
-  min-height: 100vh;
-`
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ocupa toda a altura da tela */
+`;
 
 const Header = styled.header`
   background: linear-gradient( #154580, #041833) ;
-  height: 50px ;
-`
+  height: 50px;
+`;
+
 const FundoGradiente = styled.div`
-  display:flex;
+  flex-grow: 1; /* Ocupa todo o espaço restante */
+  display: flex;
   align-items: center;
-  flex-direction: row ;
-  justify-content:center;
+  justify-content: center;
   background: linear-gradient(174.61deg, #041833 4.16%, #04244F 48%, #154580 96.76%);
-  width: 100%;
-//  min-height: 100vh;
-  height:auto;
-  `;
+`;
 
 const Footer = styled.footer`
   background: linear-gradient( #154580, #041833);
-  height: 50px ;
-`
+  height: 50px;
+`;
 
 const ContainerDisplay = styled.div`
   position: relative;
@@ -294,10 +295,9 @@ const EspacoEsquerda = styled.section`
   flex-grow: 1;
   display:flex;
   flex-direction: column ;
-  align-items: left;
   justify-content:center;
+  align-items: flex-end;
   min-height: 100%;
-  background-color: white;
 `;
 
 const EspacoCentro = styled.section`

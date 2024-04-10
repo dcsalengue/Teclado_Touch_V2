@@ -1,8 +1,8 @@
-
+import styled from "styled-components";
 
 const ListaSelecionar = ({ value, nome, itens, setSelecionado, naoExibe=false}) => {
     return (
-        <select
+        <StyledSelect
             name={nome}
             value={value}
             id={nome}
@@ -17,8 +17,13 @@ const ListaSelecionar = ({ value, nome, itens, setSelecionado, naoExibe=false}) 
                     {option.nome}
                 </option>
             ))}
-        </select>
+        </StyledSelect>
     )
 }
 
 export default ListaSelecionar;
+
+const StyledSelect = styled.select`
+    margin: 3px;
+    
+`
