@@ -22,21 +22,13 @@ const ItemProgramacao = ({
 }) => {
     return (
         <AbaProgramar
-            visivel={visivel}
-            selecionados={selecionados}
-            parametroProgramacao={parametroProgramacao}
+            $visivel={visivel}
+            $selecionados={selecionados}
+            $parametroProgramacao={parametroProgramacao}
             onClick={() => {
-                
-                if (!selecionados.includes(parametroProgramacao)) {
-                    // Validações aqui 
-                    // SetEditavel 
-                    // Verifica qual parâmetro deve ser retirado da seleção e qual manter
-                    setSelecionados([parametroProgramacao]);              
+                if (editando != parametroProgramacao) {
+                    setEditando(parametroProgramacao)
                 }
-                if (!editando.includes(parametroProgramacao)) {
-                    setEditando([parametroProgramacao])    
-                }
-                
 
             }}
         >
@@ -51,13 +43,13 @@ const ItemProgramacao = ({
             <DisplayNumerico
                 //style={styleDisplayNumerico}
                 selecionado={selecionados?.includes(parametroProgramacao) ? "true" : "false"}
-                editando={editando}
+                editando={editando?.includes(parametroProgramacao) ? "true" : "false"}
                 parametroProgramacao={parametroProgramacao}
                 valorNumerico={valorNumerico}
                 valorExibido={valorExibido}
                 setValorExibido={setValorExibido}
                 setValorNumerico={setValorNumerico}
-                teclaPressionada={selecionados.includes(parametroProgramacao) ? teclaPressionada : null}
+                teclaPressionada={editando.includes(parametroProgramacao) ? teclaPressionada : null}
                 maxDigitosInteiros={maxDigitosInteiros}
                 maxDigitosDecimais={maxDigitosDecimais}
             />
@@ -79,8 +71,8 @@ export default ItemProgramacao;
 
 const larguraBotaoUnidade = 84;
 
-const AbaProgramar = styled.div`
-    display: ${(props) => (props.visivel?.includes(props.parametroProgramacao) ? 'flex' : 'none')};  
+const AbaProgramar = styled.div` 
+    display: ${({$visivel, $parametroProgramacao}) => ($visivel?.includes($parametroProgramacao) ? 'flex' : 'none')};  
     position: relative; /* Adicione posição relativa para permitir o posicionamento absoluto do filho */  
     border: 1px solid white;
     flex-grow: 1; /* Faz com que a AbaProgramar ocupe todo o espaço disponível */
@@ -90,7 +82,7 @@ const AbaProgramar = styled.div`
     justify-content: right;
     color: black;
     box-sizing: border-box;
-    background-color: ${(props) => (props.selecionados?.includes(props.parametroProgramacao) ? '#81B0DE' : 'transparent')};
+    background-color: ${({$selecionados, $parametroProgramacao }) => ($selecionados?.includes($parametroProgramacao) ? '#81B0DE' : 'transparent')};
     &:hover {
         cursor: pointer;
     }

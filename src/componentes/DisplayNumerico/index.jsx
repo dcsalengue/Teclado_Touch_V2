@@ -49,7 +49,6 @@ const DisplayNumerico = ({ style, selecionado, editando, parametroProgramacao, v
             var [parteInteira, parteDecimal] = valorNumerico.toString().split(".");
             var lengthInteiro = parteInteira ? parteInteira.length : 0;
             var lengthDecimal = parteDecimal ? parteDecimal.length : 0;
-            // console.log(`${valorNumerico} [${lengthInteiro}] [${maxDigitosInteiros}]`)
             // Válida valor com base no número de digitos inteiros máximo
             if (valorNumerico === 0)
                 setValorExibido('')
@@ -67,16 +66,13 @@ const DisplayNumerico = ({ style, selecionado, editando, parametroProgramacao, v
     // Para piscar o cursor 
     useEffect(() => {
         const intervalID = setInterval(() => {
-            //console.log(`${parametroProgramacao} ${editando}`)
-            if (parametroProgramacao == editando) {
-                
-                //console.log(`${parametroProgramacao}`)
+            if (editando === "true") {
                 setCursor(prevState => (prevState === "false" ? "true" : "false"));
             }
             else
-            setCursor("false")
+                setCursor("false")
         }, 500);
-        if (parametroProgramacao !== editando) 
+        if (editando === "false")
             setCursor("false")
         return () => {
             clearInterval(intervalID);
@@ -87,7 +83,9 @@ const DisplayNumerico = ({ style, selecionado, editando, parametroProgramacao, v
 
     return (
         <SpanDisplayNumerico
-            selecionado={selecionado}
+            $selecionado={selecionado}
+            $editando={editando}
+            
             cursor={cursor}
         >
             {valorExibido}
@@ -108,9 +106,9 @@ const SpanDisplayNumerico = styled.span`
     margin-left: 2px;
     margin-right: 2px;
     font-size: 28px;
-    background-color: ${(props) => (props.selecionado === "true" ? 'white' : 'transparent')};
-    color: ${(props) => (props.selecionado === "true" ? 'black' : 'white')};
-    border-right: ${(props) => (props.cursor === "true" ? `2px solid black` : props.selecionado === "true" ?  `2px solid #81B0DE`: `2px solid #186ABC` )};
+    background-color: ${({$editando}) => ($editando === "true" ? 'white' : 'transparent')};
+    color: ${({$editando}) => ($editando === "true" ? 'black' : 'white')};
+    border-right: ${({cursor, $editando, $selecionado}) => (cursor === "true" ? `2px solid black` : (($editando === "true")&&( $selecionado === "true"))||( $selecionado === "true") ? `2px solid #81B0DE` : `2px solid #186ABC`)};
     box-sizing: border-box;
 `;
 

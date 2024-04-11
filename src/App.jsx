@@ -42,7 +42,7 @@ function App() {
 
   const [itensSelecionados, setItensSelecionados] = useState([]); // 12 // Ao selecionar um item 
   const [itensVisiveis, setItensVisiveis] = useState([]); // 13 // Ao selecionar um item 
-  const [itensEditando, setItensEditando] = useState([]); // 14 // Ao selecionar um item 
+  const [itensEditando, setItensEditando] = useState(''); // 14 // Ao selecionar um item 
 
   const [modoInfusaoSelecionado, setModoInfusaoSelecionado] = useState('dose'); // 15
   const [tipoInfusaoSelecionado, setTipoInfusaoSelecionado] = useState('manutencao'); // 16
@@ -69,6 +69,7 @@ function App() {
 
 
 
+  // Para alterar as abas visíveis dependendo das caixas de seleção tipoInfusao, modoInfusao e unidade
   useEffect(() => {
     if (modoInfusaoSelecionado === 'volumetrico') {
       setItensVisiveis(['Volume', 'Fluxo', 'Tempo'])
@@ -82,14 +83,138 @@ function App() {
         setItensVisiveis(['Dose', 'Volume', 'Fluxo', 'Tempo'])
       }
     }
-
-
-    // console.log(`
-    //   	${modoInfusaoSelecionado}
-    //     ${tipoInfusaoSelecionado}
-    //     ${unidadeSelecionada}
-    //     `);
   }, [modoInfusaoSelecionado, tipoInfusaoSelecionado, unidadeSelecionada]);
+
+  //Caso o item selecionado tenha sido alterado se o selecionado prévio era zero retira da seleção
+  useEffect(() => {
+    let indexToDelete = -1;
+    let novoItensSelecionados
+    // Se houver valor exibido no parâmetro editado, marca como selecionado 
+    switch (itensEditando) {
+      case 'Dose':
+        if (valorExibidoDose === '') {
+          // Remove a seleção se o valor exibido for 0 ou vazio
+          setItensSelecionados(prevSelecionados => prevSelecionados.filter(curr => curr !== itensEditando));
+        } else if (!itensSelecionados.includes(itensEditando)) {
+          // Verifica se o item editando já está selecionado
+          // Se não estiver, remove a seleção de "Fluxo" se o tipo de infusão for "manutencao", senão remove a seleção de "Volume"
+          novoItensSelecionados = [...itensSelecionados];
+          if (tipoInfusaoSelecionado === 'manutencao') {
+            novoItensSelecionados = novoItensSelecionados.filter(curr => curr !== 'Fluxo');
+          } else {
+            novoItensSelecionados = novoItensSelecionados.filter(curr => curr !== 'Volume');
+          }
+          // Exclui o primeiro item diferente de 'Peso' se houver mais de um item selecionado e o item editando não for 'Peso'
+          if (novoItensSelecionados.length > 1 && itensEditando !== 'Peso') {
+            const primeiroItemDiferenteDePeso = novoItensSelecionados.find(item => item !== 'Peso');
+            if (primeiroItemDiferenteDePeso) {
+              const indexToDelete = novoItensSelecionados.indexOf(primeiroItemDiferenteDePeso);
+              if ((indexToDelete !== -1) && (novoItensSelecionados.filter(curr => (curr !== 'Peso')).length > 1)) {
+                novoItensSelecionados.splice(indexToDelete, 1);
+              }
+            }
+          }
+
+          // Inclui o item editando como selecionado
+          setItensSelecionados([...novoItensSelecionados, itensEditando]);
+        }
+        break;
+
+      case 'Peso':
+        if (valorExibidoPeso === '') {
+          setItensSelecionados(prevSelecionados => prevSelecionados.filter(curr => (curr !== itensEditando)));
+        }
+        else if (itensSelecionados.indexOf(itensEditando) === -1) {
+          setItensSelecionados([...itensSelecionados, itensEditando])
+        }
+        break;
+      case 'Volume':
+        if (valorExibidoVolume === '') {
+          // Remove a seleção se o valor exibido for vazio
+          setItensSelecionados(prevSelecionados => prevSelecionados.filter(curr => curr !== itensEditando));
+        } else if (!itensSelecionados.includes(itensEditando)) {
+          // Verifica se o item editando já está selecionado
+          // Se não estiver, remove a seleção de "Fluxo" se o tipo de infusão for "manutencao", senão remove a seleção de "Volume"
+          novoItensSelecionados = [...itensSelecionados];
+          if (tipoInfusaoSelecionado !== 'manutencao') {
+            novoItensSelecionados = novoItensSelecionados.filter(curr => curr !== 'Dose');
+          }
+          // Exclui o primeiro item diferente de 'Peso' se houver mais de um item selecionado e o item editando não for 'Peso'
+          if (novoItensSelecionados.length > 1 && itensEditando !== 'Peso') {
+            const primeiroItemDiferenteDePeso = novoItensSelecionados.find(item => item !== 'Peso');
+            if (primeiroItemDiferenteDePeso) {
+              const indexToDelete = novoItensSelecionados.indexOf(primeiroItemDiferenteDePeso);
+              if ((indexToDelete !== -1) && (novoItensSelecionados.filter(curr => (curr !== 'Peso')).length > 1)) {
+                novoItensSelecionados.splice(indexToDelete, 1);
+              }
+            }
+          }
+          // Inclui o item editando como selecionado
+          setItensSelecionados([...novoItensSelecionados, itensEditando]);
+        }
+        break;
+
+      case 'Fluxo':
+        if (valorExibidoFluxo === '') {
+          // Remove a seleção se o valor exibido for vazio
+          setItensSelecionados(prevSelecionados => prevSelecionados.filter(curr => curr !== itensEditando));
+        } else if (!itensSelecionados.includes(itensEditando)) {
+          // Verifica se o item editando já está selecionado
+          // Se não estiver, remove a seleção de "Fluxo" se o tipo de infusão for "manutencao", senão remove a seleção de "Volume"
+          novoItensSelecionados = [...itensSelecionados];
+          if (tipoInfusaoSelecionado === 'manutencao') {
+            novoItensSelecionados = novoItensSelecionados.filter(curr => curr !== 'Dose');
+          }
+          // Exclui o primeiro item diferente de 'Peso' se houver mais de um item selecionado e o item editando não for 'Peso'
+          if (novoItensSelecionados.length > 1 && itensEditando !== 'Peso') {
+            const primeiroItemDiferenteDePeso = novoItensSelecionados.find(item => item !== 'Peso');
+            if (primeiroItemDiferenteDePeso) {
+              const indexToDelete = novoItensSelecionados.indexOf(primeiroItemDiferenteDePeso);
+              if ((indexToDelete !== -1) && (novoItensSelecionados.filter(curr => (curr !== 'Peso')).length > 1)) {
+                novoItensSelecionados.splice(indexToDelete, 1);
+              }
+            }
+          }
+          // Inclui o item editando como selecionado
+          setItensSelecionados([...novoItensSelecionados, itensEditando]);
+        }
+        break;
+
+
+      case 'Tempo':
+        if (valorExibidoTempo === '') {
+          setItensSelecionados(prevSelecionados => prevSelecionados.filter(curr => (curr !== itensEditando)));
+        }
+        else if (itensSelecionados.indexOf(itensEditando) === -1) {
+          // Encontra e remove o primeiro item diferente de 'Peso' se houver mais de um item selecionado e o item editando não for 'Peso'
+          if (itensSelecionados.length > 1 && itensEditando !== 'Peso') {
+            const primeiroItemDiferenteDePeso = itensSelecionados.find(item => item !== 'Peso');
+            if (primeiroItemDiferenteDePeso) {
+              const indexToDelete = itensSelecionados.indexOf(primeiroItemDiferenteDePeso);
+              if ((indexToDelete !== -1) && (itensSelecionados.filter(curr => (curr !== 'Peso')).length > 1)) {
+                itensSelecionados.splice(indexToDelete, 1);
+              }
+            }
+          }
+          // Inclui o item editando como selecionado
+          setItensSelecionados([...itensSelecionados, itensEditando]);
+        }
+        break;
+    }
+
+
+
+    console.log(`useEffect(valores): selecionados => [${itensSelecionados}] itensEditando => ${itensEditando}`)
+
+
+  }, [
+      valorExibidoDose
+    , valorExibidoPeso
+    , valorExibidoVolume
+    , valorExibidoFluxo
+    , valorExibidoTempo
+  ]);
+
 
   return (
     <MainContainer>
@@ -199,12 +324,14 @@ function App() {
           <button onClick={() => { setValorNumericoPeso(Math.random() * 25358); }}>Valor Númerico</button>
 
         </EspacoCentro>
-        <EspacoDireita></EspacoDireita>
+        <EspacoDireita>
+
+        </EspacoDireita>
 
 
       </FundoGradiente>
       <Footer />
-      <EstilosGlobais />  
+      <EstilosGlobais />
     </MainContainer>
 
   );
