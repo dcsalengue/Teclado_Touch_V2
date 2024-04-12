@@ -8,8 +8,9 @@ const DisplayNumerico = ({ style, selecionado, editando, parametroProgramacao, v
     // Ao rceber valor númerico e dígito null converte valor exibido para o número de dígitos especificado
 
     useEffect(() => {
-        maxDigitosInteiros = maxDigitosInteiros ? maxDigitosInteiros : 5
-        maxDigitosDecimais = maxDigitosDecimais ? maxDigitosDecimais : 3
+
+        maxDigitosInteiros = isNaN(maxDigitosInteiros) ? 5 : maxDigitosInteiros  
+        maxDigitosDecimais = isNaN(maxDigitosDecimais) ? 3 : maxDigitosDecimais 
 
         if (teclaPressionada && teclaPressionada.digito !== null) {
             var [parteInteira, parteDecimal] = valorExibido.toString().split(".");
@@ -45,19 +46,27 @@ const DisplayNumerico = ({ style, selecionado, editando, parametroProgramacao, v
             teclaPressionada.digito = null
         }
         // Se recebeu um valor numérico
-        else if (!selecionado) { // Se não estiver selecionado e editando
-            var [parteInteira, parteDecimal] = valorNumerico.toString().split(".");
-            var lengthInteiro = parteInteira ? parteInteira.length : 0;
-            var lengthDecimal = parteDecimal ? parteDecimal.length : 0;
-            // Válida valor com base no número de digitos inteiros máximo
-            if (valorNumerico === 0)
-                setValorExibido('')
-            else if (lengthInteiro > maxDigitosInteiros)
-                setValorExibido("ERRO!");
-            else {
-                //setValorExibido(`${parseFloat(valorNumerico).toFixed(maxDigitosDecimais)}`);
-                const valor = parseFloat(valorNumerico).toFixed(maxDigitosDecimais).replace(/\.?0*$/, '');
-                setValorExibido(valor);
+
+        else {
+            if (selecionado === 'false') { // Se não estiver selecionado e editando
+                console.log(maxDigitosDecimais)
+                var [parteInteira, parteDecimal] = valorNumerico.toString().split(".");
+                var lengthInteiro = parteInteira ? parteInteira.length : 0;
+                var lengthDecimal = parteDecimal ? parteDecimal.length : 0;
+                // Válida valor com base no número de digitos inteiros máximo
+                if (valorNumerico === 0)
+                    setValorExibido('')
+                else if (lengthInteiro > maxDigitosInteiros)
+                    setValorExibido("ERRO!");
+                else {
+                    //setValorExibido(`${parseFloat(valorNumerico).toFixed(maxDigitosDecimais)}`);
+                    if (maxDigitosDecimais == 0)
+                        var valor = parseInt(parteInteira)
+                    else
+                        var valor = parseFloat(valorNumerico).toFixed(maxDigitosDecimais).replace(/\.?0*$/, '');
+                    setValorExibido(valor);
+                }
+                console.log(`${valorNumerico} ${selecionado} `)
             }
         }
 
@@ -85,7 +94,7 @@ const DisplayNumerico = ({ style, selecionado, editando, parametroProgramacao, v
         <SpanDisplayNumerico
             $selecionado={selecionado}
             $editando={editando}
-            
+
             cursor={cursor}
         >
             {valorExibido}
@@ -106,9 +115,9 @@ const SpanDisplayNumerico = styled.span`
     margin-left: 2px;
     margin-right: 2px;
     font-size: 28px;
-    background-color: ${({$editando}) => ($editando === "true" ? 'white' : 'transparent')};
-    color: ${({$editando}) => ($editando === "true" ? 'black' : 'white')};
-    border-right: ${({cursor, $editando, $selecionado}) => (cursor === "true" ? `2px solid black` : (($editando === "true")&&( $selecionado === "true"))||( $selecionado === "true") ? `2px solid #81B0DE` : `2px solid #186ABC`)};
+    background-color: ${({ $editando }) => ($editando === "true" ? 'white' : 'transparent')};
+    color: ${({ $editando }) => ($editando === "true" ? 'black' : 'white')};
+    border-right: ${({ cursor, $editando, $selecionado }) => (cursor === "true" ? `2px solid black` : (($editando === "true") && ($selecionado === "true")) || ($selecionado === "true") ? `2px solid #81B0DE` : `2px solid #186ABC`)};
     box-sizing: border-box;
 `;
 

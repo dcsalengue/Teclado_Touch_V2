@@ -21,6 +21,7 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min); //O máximo é inclusivo e o mínimo é inclusivo
 }
 
+
 function App() {
   //const [teclaPressionada, setTeclaPressionada] = useState(null);
   const [teclaPressionada, setTeclaPressionada] = useState({ digito: null, contador: 0 }); // 1
@@ -48,6 +49,27 @@ function App() {
   const [tipoInfusaoSelecionado, setTipoInfusaoSelecionado] = useState('manutencao'); // 16
   const [unidadeSelecionada, setUnidadeSelecionada] = useState('mg_kg_hora'); // 17
 
+
+  // Para calcular os parâmetros dependendo dos itens selecionados
+  useEffect(() => {
+    let itemsCalculo = [...itensSelecionados];
+    console.log(`${valorNumericoVolume} / ${valorNumericoFluxo} = ${valorNumericoVolume / valorNumericoFluxo}`)
+    if (itemsCalculo.indexOf('Volume') > -1) {
+      if ((itemsCalculo.indexOf('Fluxo') > -1) && (valorNumericoFluxo>0)) {
+        // Volume e fluxo -> calcula tempo
+        setValorNumericoTempo(3600 * (valorNumericoVolume / valorNumericoFluxo))
+      }
+    }
+  }, [itensSelecionados
+    , valorExibidoDose
+    , valorExibidoPeso
+    , valorExibidoVolume
+    , valorExibidoFluxo
+    , valorExibidoTempo
+
+
+  ])
+
   const handleTeclaPressionada = (novoDigito) => {
     setTeclaPressionada(prevState => ({
       digito: novoDigito,
@@ -57,11 +79,11 @@ function App() {
 
   // useEffect(() => {
   //   console.log(`
-  //     Dose: ${valorExibidoDose}    
-  //     Peso: ${valorExibidoPeso}
-  //     Volume: ${valorExibidoVolume}
-  //     Fluxo: ${valorExibidoFluxo}
-  //     Tempo: ${valorExibidoTempo}
+  //     Dose: ${valorExibidoDose}\t${valorNumericoDose}   
+  //     Peso: ${valorExibidoPeso}\t${valorNumericoPeso}
+  //     Volume: ${valorExibidoVolume}\t${valorNumericoVolume}
+  //     Fluxo: ${valorExibidoFluxo}\t${valorNumericoFluxo}
+  //     Tempo: ${valorExibidoTempo}\t${valorNumericoTempo}
   //     itensVisiveis: ${itensVisiveis}
   //    `);
 
@@ -114,7 +136,6 @@ function App() {
               }
             }
           }
-
           // Inclui o item editando como selecionado
           setItensSelecionados([...novoItensSelecionados, itensEditando]);
         }
@@ -150,7 +171,8 @@ function App() {
             }
           }
           // Inclui o item editando como selecionado
-          setItensSelecionados([...novoItensSelecionados, itensEditando]);
+          setTimeout(() => setItensSelecionados([...novoItensSelecionados, itensEditando]), 0);
+          console.log(itensSelecionados)
         }
         break;
 
@@ -207,8 +229,9 @@ function App() {
     console.log(`useEffect(valores): selecionados => [${itensSelecionados}] itensEditando => ${itensEditando}`)
 
 
+
   }, [
-      valorExibidoDose
+    valorExibidoDose
     , valorExibidoPeso
     , valorExibidoVolume
     , valorExibidoFluxo
@@ -243,8 +266,8 @@ function App() {
                 setValorExibido={setValorExibidoDose}
                 setValorNumerico={setValorNumericoDose}
                 teclaPressionada={teclaPressionada}
-                maxDigitosInteiros={5}
-                maxDigitosDecimais={3}
+                // maxDigitosInteiros={5}
+                // maxDigitosDecimais={3}
                 unidade={unidades.filter(unidade => unidade.value === unidadeSelecionada).map(unidade => unidade.nome)}
               />
               <ItemProgramacao
@@ -311,7 +334,7 @@ function App() {
                 setValorExibido={setValorExibidoTempo}
                 setValorNumerico={setValorNumericoTempo}
                 teclaPressionada={teclaPressionada}
-                maxDigitosInteiros={3}
+                maxDigitosInteiros={7}
                 maxDigitosDecimais={0}
                 unidade={null}
 
@@ -321,7 +344,7 @@ function App() {
             <CaminhoDePao />
           </ContainerDisplay>
           <button onClick={() => { setValorExibidoVolume(getRandomIntInclusive(10000, 99999)); }}>Valor Exibido</button>
-          <button onClick={() => { setValorNumericoPeso(Math.random() * 25358); }}>Valor Númerico</button>
+          <button onClick={() => { setValorNumericoTempo(Math.random() * 25358); }}>Valor Númerico</button>
 
         </EspacoCentro>
         <EspacoDireita>
