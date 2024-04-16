@@ -1,16 +1,41 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 
-const DisplayNumerico = ({ style, selecionado, editando, parametroProgramacao, valorExibido, setValorExibido, teclaPressionada, valorNumerico, setValorNumerico, maxDigitosInteiros, maxDigitosDecimais }) => {
+const DisplayNumerico = ({
+    style,
+    selecionado,
+    editando,
+    parametroProgramacao,
+    valorExibido,
+    setValorExibido,
+    teclaPressionada,
+    valorNumerico,
+    setValorNumerico,
+    maxDigitosInteiros,
+    maxDigitosDecimais }) => {
 
     const [cursor, setCursor] = useState("false");
 
     // Ao rceber valor númerico e dígito null converte valor exibido para o número de dígitos especificado
-
+    function dividirSegundos(totalSegundos) {
+        // Calcular as horas
+        var horas = Math.floor(totalSegundos / 3600);
+        
+        // Calcular os minutos restantes
+        var minutosRestantes = totalSegundos % 3600;
+        
+        // Calcular os minutos
+        var minutos = Math.floor(minutosRestantes / 60);
+        
+        // Calcular os segundos restantes
+        var segundos = Math.round(minutosRestantes % 60)
+        
+        return { horas, minutos, segundos };
+    }
     useEffect(() => {
 
-        maxDigitosInteiros = isNaN(maxDigitosInteiros) ? 5 : maxDigitosInteiros  
-        maxDigitosDecimais = isNaN(maxDigitosDecimais) ? 3 : maxDigitosDecimais 
+        maxDigitosInteiros = isNaN(maxDigitosInteiros) ? 5 : maxDigitosInteiros
+        maxDigitosDecimais = isNaN(maxDigitosDecimais) ? 3 : maxDigitosDecimais
 
         if (teclaPressionada && teclaPressionada.digito !== null) {
             var [parteInteira, parteDecimal] = valorExibido.toString().split(".");
@@ -59,11 +84,22 @@ const DisplayNumerico = ({ style, selecionado, editando, parametroProgramacao, v
                 else if (lengthInteiro > maxDigitosInteiros)
                     setValorExibido("ERRO!");
                 else {
-                    //setValorExibido(`${parseFloat(valorNumerico).toFixed(maxDigitosDecimais)}`);
-                    if (maxDigitosDecimais == 0)
-                        var valor = parseInt(parteInteira)
-                    else
-                        var valor = parseFloat(valorNumerico).toFixed(maxDigitosDecimais).replace(/\.?0*$/, '');
+                    // Display para mostrar tempo em horas minutos e segundos a partir de um valor númérico passado em horas
+                    if (parametroProgramacao === 'Tempo') {
+                        const { horas, minutos, segundos } = dividirSegundos(valorNumerico) 
+                        console.log(valorNumerico)
+                        if((horas+minutos+segundos) > 0)
+                            var valor = `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+                        else    
+                            var valor = ``
+                    }
+                    // Formata valor exibido a partir de valor numérico em ponto flutuante passado
+                    else {
+                        if (maxDigitosDecimais == 0)
+                            var valor = parseInt(parteInteira)
+                        else
+                            var valor = parseFloat(valorNumerico).toFixed(maxDigitosDecimais).replace(/\.?0*$/, '');
+                    }
                     setValorExibido(valor);
                 }
                 console.log(`${valorNumerico} ${selecionado} `)

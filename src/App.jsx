@@ -54,8 +54,9 @@ function App() {
   useEffect(() => {
     let itemsCalculo = [...itensSelecionados];
     console.log(`${valorNumericoVolume} / ${valorNumericoFluxo} = ${valorNumericoVolume / valorNumericoFluxo}`)
+
     if (itemsCalculo.indexOf('Volume') > -1) {
-      if ((itemsCalculo.indexOf('Fluxo') > -1) && (valorNumericoFluxo>0)) {
+      if ((itemsCalculo.indexOf('Fluxo') > -1) && (valorNumericoFluxo > 0)) {
         // Volume e fluxo -> calcula tempo
         setValorNumericoTempo(3600 * (valorNumericoVolume / valorNumericoFluxo))
       }
@@ -89,7 +90,20 @@ function App() {
 
   // });
 
-
+  const todosParametros = ['Dose', 'Peso', 'Volume', 'Fluxo', 'Tempo']
+  function ZeraValoresNumericosCalculados() {
+    const parametrosAusentes = todosParametros.filter(parametro => !itensSelecionados.includes(parametro));
+    parametrosAusentes.map(item => {
+      if (item === 'Dose')
+        setValorNumericoDose(0);
+      if (item === 'Volume')
+        setValorNumericoVolume(0)
+      if (item === 'Fluxo')
+        setValorNumericoFluxo(0)
+      if (item === 'Tempo')
+        setValorNumericoTempo(0)
+    })
+  }
 
   // Para alterar as abas visíveis dependendo das caixas de seleção tipoInfusao, modoInfusao e unidade
   useEffect(() => {
@@ -144,6 +158,7 @@ function App() {
       case 'Peso':
         if (valorExibidoPeso === '') {
           setItensSelecionados(prevSelecionados => prevSelecionados.filter(curr => (curr !== itensEditando)));
+          ZeraValoresNumericosCalculados()
         }
         else if (itensSelecionados.indexOf(itensEditando) === -1) {
           setItensSelecionados([...itensSelecionados, itensEditando])
@@ -153,6 +168,8 @@ function App() {
         if (valorExibidoVolume === '') {
           // Remove a seleção se o valor exibido for vazio
           setItensSelecionados(prevSelecionados => prevSelecionados.filter(curr => curr !== itensEditando));
+          // Zera Valores Numéricos não selecionados
+          ZeraValoresNumericosCalculados()
         } else if (!itensSelecionados.includes(itensEditando)) {
           // Verifica se o item editando já está selecionado
           // Se não estiver, remove a seleção de "Fluxo" se o tipo de infusão for "manutencao", senão remove a seleção de "Volume"
@@ -180,6 +197,7 @@ function App() {
         if (valorExibidoFluxo === '') {
           // Remove a seleção se o valor exibido for vazio
           setItensSelecionados(prevSelecionados => prevSelecionados.filter(curr => curr !== itensEditando));
+          ZeraValoresNumericosCalculados()
         } else if (!itensSelecionados.includes(itensEditando)) {
           // Verifica se o item editando já está selecionado
           // Se não estiver, remove a seleção de "Fluxo" se o tipo de infusão for "manutencao", senão remove a seleção de "Volume"
@@ -206,6 +224,7 @@ function App() {
       case 'Tempo':
         if (valorExibidoTempo === '') {
           setItensSelecionados(prevSelecionados => prevSelecionados.filter(curr => (curr !== itensEditando)));
+          ZeraValoresNumericosCalculados()
         }
         else if (itensSelecionados.indexOf(itensEditando) === -1) {
           // Encontra e remove o primeiro item diferente de 'Peso' se houver mais de um item selecionado e o item editando não for 'Peso'
