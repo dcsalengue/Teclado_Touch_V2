@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import DisplayNumerico from "../DisplayNumerico";
+import DisplayTempo from "../DisplayTempo";
 
 
 
@@ -40,20 +41,36 @@ const ItemProgramacao = ({
                     {tipoInfusao}
                 </SpanTipoInfusao>
             </LabelParametroProgramacao>
-            <DisplayNumerico
-                //style={styleDisplayNumerico}
-                selecionado={selecionados?.includes(parametroProgramacao) ? "true" : "false"}
-                editando={editando?.includes(parametroProgramacao) ? "true" : "false"}
-                parametroProgramacao={parametroProgramacao}
-                valorNumerico={valorNumerico}
-                valorExibido={valorExibido}
-                setValorExibido={setValorExibido}
-                setValorNumerico={setValorNumerico}
-                teclaPressionada={editando.includes(parametroProgramacao) ? teclaPressionada : null}
-                maxDigitosInteiros={maxDigitosInteiros}
-                maxDigitosDecimais={maxDigitosDecimais}
-            />
 
+            {
+                parametroProgramacao === 'Tempo'
+                    ?
+                    <DisplayTempo
+                        //style={styleDisplayNumerico}
+                        selecionado={selecionados?.includes(parametroProgramacao) ? "true" : "false"}
+                        editando={editando?.includes(parametroProgramacao) ? "true" : "false"}
+                        parametroProgramacao={parametroProgramacao}
+                        valorNumerico={valorNumerico}
+                        valorExibido={valorExibido}
+                        setValorExibido={setValorExibido}
+                        setValorNumerico={setValorNumerico}
+                        teclaPressionada={editando.includes(parametroProgramacao) ? teclaPressionada : null}
+                    />
+                    :
+                    <DisplayNumerico
+                        //style={styleDisplayNumerico}
+                        selecionado={selecionados?.includes(parametroProgramacao) ? "true" : "false"}
+                        editando={editando?.includes(parametroProgramacao) ? "true" : "false"}
+                        parametroProgramacao={parametroProgramacao}
+                        valorNumerico={valorNumerico}
+                        valorExibido={valorExibido}
+                        setValorExibido={setValorExibido}
+                        setValorNumerico={setValorNumerico}
+                        teclaPressionada={editando.includes(parametroProgramacao) ? teclaPressionada : null}
+                        maxDigitosInteiros={maxDigitosInteiros}
+                        maxDigitosDecimais={maxDigitosDecimais}
+                    />
+            }
             <ContainerUnidade>
                 {unidade !== null && (
                     <BotaoUnidade>
@@ -71,8 +88,9 @@ export default ItemProgramacao;
 
 const larguraBotaoUnidade = 84;
 
+
 const AbaProgramar = styled.div` 
-    display: ${({$visivel, $parametroProgramacao}) => ($visivel?.includes($parametroProgramacao) ? 'flex' : 'none')};  
+    display: ${({ $visivel, $parametroProgramacao }) => ($visivel?.includes($parametroProgramacao) ? 'flex' : 'none')};  
     position: relative; /* Adicione posição relativa para permitir o posicionamento absoluto do filho */  
     border: 1px solid white;
     flex-grow: 1; /* Faz com que a AbaProgramar ocupe todo o espaço disponível */
@@ -82,7 +100,7 @@ const AbaProgramar = styled.div`
     justify-content: right;
     color: black;
     box-sizing: border-box;
-    background-color: ${({$selecionados, $parametroProgramacao }) => ($selecionados?.includes($parametroProgramacao) ? '#81B0DE' : 'transparent')};
+    background-color:  ${({ $selecionados, $parametroProgramacao }) => ($selecionados?.includes($parametroProgramacao) ? '#81B0DE' : 'transparent')};
     &:hover {
         cursor: pointer;
     }

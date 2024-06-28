@@ -20,16 +20,16 @@ const DisplayNumerico = ({
     function dividirSegundos(totalSegundos) {
         // Calcular as horas
         var horas = Math.floor(totalSegundos / 3600);
-        
+
         // Calcular os minutos restantes
         var minutosRestantes = totalSegundos % 3600;
-        
+
         // Calcular os minutos
         var minutos = Math.floor(minutosRestantes / 60);
-        
+
         // Calcular os segundos restantes
         var segundos = Math.round(minutosRestantes % 60)
-        
+
         return { horas, minutos, segundos };
     }
     useEffect(() => {
@@ -86,11 +86,11 @@ const DisplayNumerico = ({
                 else {
                     // Display para mostrar tempo em horas minutos e segundos a partir de um valor númérico passado em horas
                     if (parametroProgramacao === 'Tempo') {
-                        const { horas, minutos, segundos } = dividirSegundos(valorNumerico) 
+                        const { horas, minutos, segundos } = dividirSegundos(valorNumerico)
                         console.log(valorNumerico)
-                        if((horas+minutos+segundos) > 0)
+                        if ((horas + minutos + segundos) > 0)
                             var valor = `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
-                        else    
+                        else
                             var valor = ``
                     }
                     // Formata valor exibido a partir de valor numérico em ponto flutuante passado
@@ -125,16 +125,21 @@ const DisplayNumerico = ({
     }, [editando]); // Dependência é o parametroProgramacao
 
 
-
+    // Aqui se for tempo Separar em 3 spans
     return (
+
         <SpanDisplayNumerico
             $selecionado={selecionado}
             $editando={editando}
-
+            $parametroProgramacao={parametroProgramacao}
             cursor={cursor}
         >
             {valorExibido}
+
+
         </SpanDisplayNumerico>
+
+
     )
 }
 
@@ -157,3 +162,4 @@ const SpanDisplayNumerico = styled.span`
     box-sizing: border-box;
 `;
 
+//      {valorExibido}
